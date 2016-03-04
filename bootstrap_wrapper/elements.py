@@ -5,7 +5,7 @@
 from markupsafe import Markup
 from dominate.tags import html_tag, div, li
 
-from .helpers import KClass, KwContainer, parse_into_single_tuple
+from .helpers import KClassDep, parse_into_single_tuple
 
 class ElementMeta(type):
     """ Adds tagname override to our elements. """
@@ -20,24 +20,20 @@ class Element(html_tag, metaclass=ElementMeta):
         return Markup(super().render(*args, **kwargs))
 
 
-class Div(Element, div):
+class Div(Element):
     """ A <div> tag.  Default class is `container`. """
     tagname = 'div'
 
     def __init__(self, *args, fluid=False, **kwargs):
-        kclass_dep = KClass()
+        print('Div init')
+        print('kwargs', kwargs)
+        kclass_dep = KClassDep()
         if fluid is True:
             kclass_dep.append('container-fluid')
         else:
             kclass_dep.append('container')
 
-        _class = kwargs.pop('_class', None) or kwargs.pop('cls', None)
-        if _class is not None:
-            kclass_dep.append(_class)
-
-        kwargs.update(kclass_dep())
-
-        super().__init__(*args, **kwargs)
+        super().__init__(*args, **kclass_dep(kwargs))
 
 class Ul(Element):
     """ A <ul> tag.  Makes sure all elements added are wrapped in <li> tag. """
@@ -70,4 +66,19 @@ class Ul(Element):
         else:
             return tuple(added)
         
+class Glyphicon(Element):
+    """ A glyphicon element.
+
+            If this element is called with an href then it returns and <a> tag with
+            the appropriate class's, else it defaults to a <span> tag.
+    """
+    tagname = 'span'
+
+    def __init__(self, *args, icon_name='home', href=None, **kwargs):
+        if href is not None:
+            self.__class__.tagname = 'a'
+            kwargs.update({'href': href})
+
+        kclass = KClassDep('glyphicon', 'glyphicon-{}'.format(icon_name))
+        super().__init__(*args, **kclass(kwargs))
 

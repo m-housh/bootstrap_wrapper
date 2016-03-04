@@ -45,10 +45,48 @@ class KwContainer:
     def __call__(self):
         return {self.key: self.value()}
 
-class KClass(KwContainer):
+class KDep(KwContainer):
+
+    def __call__(self, kwargs={}):
+        try:
+            attr = kwargs[self.key]
+            self.append(attr)
+            kwargs[self.key] = self.value()
+            return kwargs
+        except:
+            s_call = super().__call__()
+            kwargs.update(s_call)
+            return kwargs
+
+
+class KDefault(KwContainer):
+
+    def __call__(self, kwargs={}):
+        # this seems like a hack, but for some reason using hasattr(kwargs, self.key) does
+        # not ever return True
+        try:
+            attr = kwargs[self.key]
+            return kwargs
+        except: 
+            s_call = super().__call__()
+            kwargs.update(s_call)
+            return kwargs
+
+class KClassDep(KDep):
 
     def __init__(self, *items):
         super().__init__(*items, key='_class')
+
+    def __call__(self, kwargs={}):
+        try:
+            attr = kwargs['cls']
+            self.append(attr)
+            del kwargs['cls']
+            kwargs[self.key] = self.value()
+            return kwargs
+        except:
+            return super().__call__(kwargs)
+
 
 
 def parse_into_single_tuple(items, retval=None):

@@ -18,7 +18,7 @@ class ElementsTestCase(TestCase):
     def test_subclassing_element(self):
         class FDiv(Div):
             def __init__(self, *args, **kwargs):
-                kwargs.update({'cls': 'fdivclass'})
+                kwargs.update({'_class': 'fdivclass'})
                 super().__init__(*args, **kwargs)
 
 
@@ -33,3 +33,13 @@ class ElementsTestCase(TestCase):
         u.add(li('d'))
         tv.add(li('d'))
         self.assertEqual(u.render(), tv.render())
+
+    def test_glyphicon(self):
+        g = Glyphicon()
+        tv = span(_class='glyphicon glyphicon-home')
+        self.assertEqual(g.render(), tv.render())
+
+        g = Glyphicon(icon_name='user', href='#')
+        tv = a(_class='glyphicon glyphicon-user', href='#')
+        self.assertEqual(g.render(), tv.render())
+        
