@@ -13,3 +13,23 @@ class ElementsTestCase(TestCase):
 
         d = Div(_class='some')
         self.assertEqual(d.render(), div(_class='container some').render())
+
+
+    def test_subclassing_element(self):
+        class FDiv(Div):
+            def __init__(self, *args, **kwargs):
+                kwargs.update({'cls': 'fdivclass'})
+                super().__init__(*args, **kwargs)
+
+
+        self.assertEqual(FDiv().render(), div(_class='container fdivclass').render())
+
+
+    def test_ul_element(self):
+        u = Ul('a','b','c')
+        tv = ul(li('a'),li('b'),li('c'))
+        self.assertEqual(u.render(), tv.render())
+
+        u.add(li('d'))
+        tv.add(li('d'))
+        self.assertEqual(u.render(), tv.render())

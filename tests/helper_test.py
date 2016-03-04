@@ -13,3 +13,7 @@ class HelpersTestCase(TestCase):
 
         k.append('c','d','a','b')
         self.assertEqual({'_class': 'a b c d'}, k())
+
+    def test_parse_into_single_tuple(self):
+        tv = parse_into_single_tuple(('a', ['b', 'c'], ('d', 'e')))
+        self.assertEqual(tv, ('a','b','c','d','e'))

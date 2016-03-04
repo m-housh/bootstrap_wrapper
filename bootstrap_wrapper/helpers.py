@@ -49,3 +49,15 @@ class KClass(KwContainer):
 
     def __init__(self, *items):
         super().__init__(*items, key='_class')
+
+
+def parse_into_single_tuple(items, retval=None):
+    """ Parse lists/tuples of lists/tuples into one tuple with all the values. """
+    if retval is None:
+        retval = []
+    for item in items:
+        if isinstance(item, list) or isinstance(item, tuple):
+            retval = list(parse_into_single_tuple(item, retval))
+        else:
+            retval.append(item)
+    return tuple(retval)
