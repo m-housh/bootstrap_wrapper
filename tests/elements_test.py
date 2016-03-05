@@ -107,4 +107,33 @@ class ElementsTestCase(TestCase):
         )
 
         self.assertEqual(d.render(), tv.render())
+
+    def test_table_header(self):
+        t = TableHeader('Column1', 'Column2')
+        tv = thead(tr(th('Column1'),th('Column2')))
+        self.assertEqual(t.render(), tv.render())
         
+        t.add('Column3')
+        tv.children[0].add(th('Column3'))
+        self.assertEqual(t.render(), tv.render())
+
+    def test_table_row(self):
+        t = TableRow('Item1', 'Item2')
+        tv = tr(td('Item1'), td('Item2'))
+        self.assertEqual(t.render(), tv.render())
+
+        t = TableRow(info=True)
+        tv = tr(_class='info')
+        self.assertEqual(t.render(), tv.render())
+
+        t = TableRow(success=True)
+        tv = tr(_class='success')
+        self.assertEqual(t.render(), tv.render())
+
+        t = TableRow(warning=True)
+        tv = tr(_class='warning')
+        self.assertEqual(t.render(), tv.render())
+
+        t = TableRow(danger=True)
+        tv = tr(_class='danger')
+        self.assertEqual(t.render(), tv.render())

@@ -43,7 +43,9 @@ class KwContainer:
         return self.value.append(*items)
 
     def __call__(self):
-        return {self.key: self.value()}
+        if self.value() is not '':
+            return {self.key: self.value()}
+        return {}
 
 class KDep(KwContainer):
 
