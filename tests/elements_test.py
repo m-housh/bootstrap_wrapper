@@ -159,6 +159,39 @@ class ElementsTestCase(TestCase):
         _tbody.add(tr(td('Item3'), td('Item4')))
         self.assertEqual(t.render(), tv.render())
 
-        t = Table(bordered=True, striped=True)
+        t = Table(TableBody(), bordered=True, striped=True)
         tv = table(tbody(), _class='table table-bordered table-striped')
         self.assertEqual(t.render(), tv.render())
+
+
+
+    def test_responsive_table(self):
+        t = ResponsiveTable(Table())
+        tv = div(table(tbody(), _class='table'), _class='table-responsive')
+        self.assertEqual(t.render(), tv.render())
+
+
+    def test_button(self):
+        b = Button()
+        tv = button(type='button', _class='btn btn-default')
+        self.assertEqual(b.render(), tv.render())
+
+        b = Button(anchor=True, link=True)
+        tv = a(type='button', _class='btn btn-link')
+        self.assertEqual(b.render(), tv.render())
+
+        b = Button(primary=True)
+        tv = button(type='button', _class='btn btn-primary')
+        self.assertEqual(b.render(), tv.render())
+
+        b = Button(success=True)
+        tv = button(type='button', _class='btn btn-success')
+        self.assertEqual(b.render(), tv.render())
+
+        b = Button(info=True)
+        tv = button(type='button', _class='btn btn-info')
+        self.assertEqual(b.render(), tv.render())
+
+        b = Button(danger=True, pull_right=True)
+        tv = button(type='button', _class='btn btn-danger pull-right')
+        self.assertEqual(b.render(), tv.render())

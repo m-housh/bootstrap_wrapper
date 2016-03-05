@@ -247,38 +247,12 @@ class Table(Element):
         self.body = None
         self.header = None
 
-        super().__init__(self, **kclass_deps(kwargs))
+        super().__init__(**kclass_deps(kwargs))
         self.add(items)
-        '''
-        items_lst = list(items)
 
-        header_lst = [item for item in items if isinstance(item, TableHeader)]
-        #:TODO   maybe move adding header to a class method to make it easier to add a header
-        #        after instantiation
-        if len(header_lst) == 1:
-            self.header = header_lst[0]
-            self.children.insert(0, self.header)
-            items_lst.remove(header_lst[0])
-
-        body_lst = [body for body in items_lst if isinstance(body, TableBody)]
-        if len(body_lst) == 1:
-            print('body_lst is 1')
-            self.body = super().add(body_lst[0])
-            items_lst.remove(body_lst[0])
-
-        if self.body is None:
-            self.body = super().add(TableBody())
-            print('self.body', self.body)
-
-        if len(items_lst) > 0:
-            self.add(tuple(items_lst))
-        '''
     def add(self, *items):
         """ Adds items to the table body. """
-        '''
-        if self.body is None:
-            self.body = super().add(TableBody())
-        '''
+
         items_lst = list(parse_into_single_tuple(items))
 
         header_lst = [item for item in items_lst if isinstance(item, TableHeader)]
@@ -296,8 +270,49 @@ class Table(Element):
 
         if self.body is None:
             self.body = super().add(TableBody())
-            print('self.body', self.body)
 
         return self.body.add(tuple(items_lst))
 
-            
+class ResponsiveTable(Element):
+    """ A wrapper to make a table responsive. """
+    #:TODO: make an table element that can have responsive as a param.
+    tagname = 'div'
+
+    def __init__(self, *items, **kwargs):
+        kclass_dep = KClassDep('table-responsive')
+        super().__init__(*items, **kclass_dep(kwargs))
+           
+
+class Button(Element):
+    """ A button element. """
+    tagname = 'button'
+
+    def __init__(self, *items, anchor=False, primary=False, success=False, info=False, \
+            danger=False, link=False, pull_right=False, **kwargs):
+
+        if anchor is True:
+            type(self).tagname = 'a'
+        else:
+            type(self).tagname = 'button'
+
+        kclass_dep = KClassDep('btn')
+        ktype = KDep('button', key='type')
+
+        if primary is True:
+            kclass_dep.append('btn-primary')
+        elif success is True:
+            kclass_dep.append('btn-success')
+        elif info is True:
+            kclass_dep.append('btn-info')
+        elif danger is True:
+            kclass_dep.append('btn-danger')
+        elif link is True:
+            kclass_dep.append('btn-link')
+        else:
+            kclass_dep.append('btn-default')
+
+        if pull_right is True:
+            kclass_dep.append('pull-right')
+
+        kwargs = ktype(kclass_dep(kwargs))
+        super().__init__(*items, **kwargs)
