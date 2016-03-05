@@ -137,3 +137,8 @@ class ElementsTestCase(TestCase):
         t = TableRow(danger=True)
         tv = tr(_class='danger')
         self.assertEqual(t.render(), tv.render())
+
+    def test_table_body(self):
+        t = TableBody(TableRow('Item1', 'Item2'), tr(td('Item3'), td('Item4')))
+        tv = tbody(tr(td('Item1'), td('Item2')), tr(td('Item3'), td('Item4')))
+        self.assertEqual(t.render(), tv.render())
