@@ -42,4 +42,69 @@ class ElementsTestCase(TestCase):
         g = Glyphicon(icon_name='user', href='#')
         tv = a(_class='glyphicon glyphicon-user', href='#')
         self.assertEqual(g.render(), tv.render())
+
+    def test_dropdown_basic(self):
+        d = Dropdown()
+        tv = div(
+            a(
+                span(span(_class='caret')),
+                _class='dropdown-toggle', 
+                data_toggle='dropdown', 
+                href='#'
+            ),
+            ul(_class='dropdown-menu'),
+            _class='dropdown'
+        )
+        self.assertEqual(d.render(), tv.render())
+
+    def test_dropdown_as_li(self):
+        d = Dropdown(li=True)
+        tv = li(
+            a(
+                span(span(_class='caret')),
+                _class='dropdown-toggle', 
+                data_toggle='dropdown', 
+                href='#'
+            ),
+            ul(_class='dropdown-menu'),
+            _class='dropdown'
+        )
+        self.assertEqual(d.render(), tv.render())
+
+    def test_dropdown_button(self):
+        d = DropdownButton('Home', glyph='home')
+        tv = a(
+            span('Home',
+                span(_class='glyphicon glyphicon-home'),
+                span(_class='caret')
+            ),
+            data_toggle='dropdown',
+            href='#',
+            _class='dropdown-toggle',
+        )
+        self.assertEqual(d.render(), tv.render())
+
+    def test_dropdown_with_button(self):
+        d = Dropdown(
+            DropdownButton(glyph='home'),
+            a('Menu1', href='#'),
+            a('Menu2', href='#'),
+        )
+
+        tv = div(
+            a(
+                span(span(_class='glyphicon glyphicon-home'), span(_class='caret')),
+                _class='dropdown-toggle',
+                data_toggle='dropdown',
+                href='#'
+            ),
+            ul(
+                li(a('Menu1', href='#')),
+                li(a('Menu2', href='#')),
+                _class='dropdown-menu',
+            ),
+            _class='dropdown'
+        )
+
+        self.assertEqual(d.render(), tv.render())
         
