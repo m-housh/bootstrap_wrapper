@@ -142,3 +142,23 @@ class ElementsTestCase(TestCase):
         t = TableBody(TableRow('Item1', 'Item2'), tr(td('Item3'), td('Item4')))
         tv = tbody(tr(td('Item1'), td('Item2')), tr(td('Item3'), td('Item4')))
         self.assertEqual(t.render(), tv.render())
+
+    def test_table(self):
+        t = Table(
+            TableHeader('Column1', 'Column2'),
+            TableRow('Item1', 'Item2'),
+        )
+        tv = table(
+            thead(tr(th('Column1'), th('Column2'))),
+            _class='table'
+        )
+        _tbody = tv.add(tbody(tr(td('Item1'), td('Item2'))))
+        self.assertEqual(t.render(), tv.render())
+
+        t.add(TableRow('Item3', 'Item4'))
+        _tbody.add(tr(td('Item3'), td('Item4')))
+        self.assertEqual(t.render(), tv.render())
+
+        t = Table(bordered=True, striped=True)
+        tv = table(tbody(), _class='table table-bordered table-striped')
+        self.assertEqual(t.render(), tv.render())

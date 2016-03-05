@@ -4,7 +4,7 @@
 """
 import sys
 from markupsafe import Markup
-from dominate.tags import html_tag, div, li, span, th, td
+from dominate.tags import html_tag, div, li, span, th, td, tr
 
 from .helpers import KDep, KClassDep, parse_into_single_tuple
 #{{{
@@ -224,16 +224,14 @@ class TableBody(Element):
 
     def add(self, *items):
         """ Make's sure all items are a TableRow or tr tag. """
-        items = parse_into_single_list(items)
-        error_items = [item for item in items \
-                if not isinstance(item, TableRow) \
-                or not isinstance(item, tr) \
-                or getattr(type(item), tagname, None) is not 'tr']
+        items = parse_into_single_tuple(items)
+        error_items = [item for item in items  if not isinstance(item, TableRow)]
+        error_items = [item for item in error_items if not isinstance(item, tr)]
         if len(error_items) > 0:
             print('ERROR in table body', error_items, file=sys.stderr)
             # do something with error_items
             items = tuple((item for item in items if item not in error_items))
-        super.add(*items)
+        return super().add(*items)
 
 class Table(Element):
     """ The top level table element. """
@@ -246,30 +244,60 @@ class Table(Element):
         if striped is True:
             kclass_deps.append('table-striped')
 
-        super().__init__(self, **kclass_deps(kwargs))
+        self.body = None
+        self.header = None
 
+        super().__init__(self, **kclass_deps(kwargs))
+        self.add(items)
+        '''
         items_lst = list(items)
 
-        headers = [header for header in items if isinstance(item, TableHeader)]
+        header_lst = [item for item in items if isinstance(item, TableHeader)]
         #:TODO   maybe move adding header to a class method to make it easier to add a header
         #        after instantiation
         if len(header_lst) == 1:
-            self.header = super().add(header_lst[0])
+            self.header = header_lst[0]
+            self.children.insert(0, self.header)
             items_lst.remove(header_lst[0])
 
-        self.body = None
+        body_lst = [body for body in items_lst if isinstance(body, TableBody)]
+        if len(body_lst) == 1:
+            print('body_lst is 1')
+            self.body = super().add(body_lst[0])
+            items_lst.remove(body_lst[0])
+
+        if self.body is None:
+            self.body = super().add(TableBody())
+            print('self.body', self.body)
+
+        if len(items_lst) > 0:
+            self.add(tuple(items_lst))
+        '''
+    def add(self, *items):
+        """ Adds items to the table body. """
+        '''
+        if self.body is None:
+            self.body = super().add(TableBody())
+        '''
+        items_lst = list(parse_into_single_tuple(items))
+
+        header_lst = [item for item in items_lst if isinstance(item, TableHeader)]
+        #:TODO   maybe move adding header to a class method to make it easier to add a header
+        #        after instantiation
+        if len(header_lst) == 1:
+            self.header = header_lst[0]
+            self.children.insert(0, self.header)
+            items_lst.remove(header_lst[0])
+
         body_lst = [body for body in items_lst if isinstance(body, TableBody)]
         if len(body_lst) == 1:
             self.body = super().add(body_lst[0])
             items_lst.remove(body_lst[0])
 
         if self.body is None:
-            self.body = super().add(TableBody(tuple(items_lst)))
-        elif len(items_lst) > 0:
-            self.add(tuple(items_lst))
+            self.body = super().add(TableBody())
+            print('self.body', self.body)
 
-    def add(self, *items):
-        """ Adds items to the table body. """
-        return self.body.add(items)
+        return self.body.add(tuple(items_lst))
 
             
