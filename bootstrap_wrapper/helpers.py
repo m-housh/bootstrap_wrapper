@@ -120,6 +120,10 @@ class KClassDefault(KDefault):
         except:
             return super().__call__(kwargs)
 
+class KStyle(KDefault): # styling should never be a dependency
+
+    def __init__(self, *items):
+        super().__init__(*items, key='style', sort=False)
 
 def parse_into_single_tuple(items, retval=None):
     """ Parse lists/tuples of lists/tuples into one tuple with all the values. """
