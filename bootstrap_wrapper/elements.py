@@ -332,21 +332,20 @@ class Button(Tag):
 
         self.kclass_dep = KClassDep('btn')
         self.ktype = KDep('button', key='type')
+        self.kclass_default = KClassDefault('btn-default')
 
         if primary is True:
-            self.kclass_dep.append('btn-primary')
+            self.kclass_default.set('btn-primary')
         elif success is True:
-            self.kclass_dep.append('btn-success')
+            self.kclass_default.set('btn-success')
         elif info is True:
-            self.kclass_dep.append('btn-info')
+            self.kclass_default.set('btn-info')
         elif danger is True:
-            self.kclass_dep.append('btn-danger')
+            self.kclass_default.set('btn-danger')
         elif link is True:
-            self.kclass_dep.append('btn-link')
-        else:
-            self.kclass_dep.append('btn-default')
+            self.kclass_default.set('btn-link')
 
         if pull_right is True:
-            self.kclass_dep.append('pull-right')
+            self.kclass_default.append('pull-right')
 
         super().__init__(*items, **self.update_kwargs(kwargs))
