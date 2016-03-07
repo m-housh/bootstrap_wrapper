@@ -7,7 +7,7 @@ from itertools import chain
 from markupsafe import Markup
 from dominate.tags import html_tag, div, li, span, th, td, tr
 
-from .helpers import KDep, KClassDep, KDefault, KwContainer, parse_into_single_tuple
+from .helpers import KDep, KClassDep, KClassDefault, KDefault, KwContainer, parse_into_single_tuple
 
 class ElementMeta(type):
     """ Adds tagname override to our elements. """
@@ -63,12 +63,11 @@ class Div(Tag):
     tagname = 'div'
 
     def __init__(self, *args, fluid=False, **kwargs):
+        self.kclass_default = KClassDefault('container')
         if fluid is True:
-            self.kclass_dep = KClassDep('container-fluid')
-        else:
-            self.kclass_dep = KClassDep('container')
+            self.kclass_default.set('container-fluid')
 
-        super().__init__(*args, **kwargs)
+        super().__init__(*args, **self.update_kwargs(kwargs))
 
 class Ul(Tag):
     """ A <ul> tag.  Makes sure all elements added are wrapped in <li> tag. """
@@ -116,9 +115,9 @@ class Glyphicon(Tag):
             self.__class__.tagname = 'span'
         
         self.kclass_dep = KClassDep('glyphicon')
-        self.kclass_dep.append('glyphicon-{}'.format(icon_name))
+        self.kclass_default = KClassDefault('glyphicon-{}'.format(icon_name))
 
-        super().__init__(*args, **kwargs)
+        super().__init__(*args, **self.update_kwargs(kwargs))
 
 class DropdownButton(Tag):
     tagname = 'a'
@@ -139,7 +138,7 @@ class DropdownButton(Tag):
         if caret is True:
             items.add(span(_class='caret'))
 
-        super().__init__(items, **kwargs)
+        super().__init__(items, **self.update_kwargs(kwargs))
 
 class Dropdown(Tag):
     """ A dropdown element. """
@@ -155,7 +154,7 @@ class Dropdown(Tag):
 
         self.kclass_dep = KClassDep('dropdown')
 
-        super().__init__(**kwargs)
+        super().__init__(**self.update_kwargs(kwargs))
         
         # list of the menu items for the dropdown
         # all elements except for the dropdown button, get added to this menu.
@@ -223,7 +222,7 @@ class TableRow(Tag):
         elif danger is True:
             self.kclass_dep.append('danger')
 
-        super().__init__(**kwargs)
+        super().__init__(**self.update_kwargs(kwargs))
         self.add(items)
 
     def add(self, *items):
@@ -280,7 +279,7 @@ class Table(Tag):
         self.body = None
         self.header = None
 
-        super().__init__(**kwargs)
+        super().__init__(**self.update_kwargs(kwargs))
         self.add(items)
 
     def add(self, *items):
@@ -306,14 +305,17 @@ class Table(Tag):
 
         return self.body.add(tuple(items_lst))
 
-class ResponsiveTable(Tag):
+class ResponsiveTable(Div):
     """ A wrapper to make a table responsive. """
     #:TODO: make an table element that can have responsive as a param.
+    
     tagname = 'div'
 
     def __init__(self, *items, **kwargs):
         self.kclass_dep = KClassDep('table-responsive')
-        super().__init__(*items, **kwargs)
+        # when subclassing an element you must call self.update_kwargs or it will not 
+        # gaurantee the right kwargs being sent the html_tag instantiation.
+        super().__init__(*items, **self.update_kwargs(kwargs))
            
 
 class Button(Tag):
@@ -347,4 +349,4 @@ class Button(Tag):
         if pull_right is True:
             self.kclass_dep.append('pull-right')
 
-        super().__init__(*items, **kwargs)
+        super().__init__(*items, **self.update_kwargs(kwargs))

@@ -12,7 +12,7 @@ class ElementsTestCase(TestCase):
         self.assertEqual(d.render(), div(_class='container-fluid').render())
 
         d = Div(_class='some')
-        self.assertEqual(d.render(), div(_class='container some').render())
+        self.assertEqual(d.render(), div(_class='some').render())
 
 
     def test_subclassing_element(self):
@@ -22,7 +22,7 @@ class ElementsTestCase(TestCase):
                 super().__init__(*args, **kwargs)
 
 
-        self.assertEqual(FDiv().render(), div(_class='container fdivclass').render())
+        self.assertEqual(FDiv().render(), div(_class='fdivclass').render())
 
 
     def test_ul_element(self):
@@ -168,6 +168,8 @@ class ElementsTestCase(TestCase):
     def test_responsive_table(self):
         t = ResponsiveTable(Table())
         tv = div(table(tbody(), _class='table'), _class='table-responsive')
+        print(t)
+        print(tv)
         self.assertEqual(t.render(), tv.render())
 
 

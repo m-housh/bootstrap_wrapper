@@ -2,7 +2,7 @@ from markupsafe import Markup
 from itertools import chain
 from functools import reduce
 from dominate.tags import *
-from bootstrap_wrapper.helpers import KDep, KDefault, KClassDep, KwContainer
+from bootstrap_wrapper.helpers import KDep, KDefault, KClassDep, KClassDefault, KwContainer
 
 class Meta(type):
     tagname = None
@@ -42,22 +42,21 @@ class Tag(html_tag, metaclass=Meta):
 
         return kwargs
 
+
+
 class Div(Tag):
     tagname = 'div'
 
-    kclass_dep = KClassDep('container')
 
     def __init__(self, *args, **kwargs):
+        self.kclass_default = KClassDefault('container')
         self.kdep = KDep('a', key='style')
-        self.kstyle = KDefault('border:solid 1px grey;', key='style', sort=False)
         super().__init__(*args, **kwargs)
 
 class FDiv(Div):
-
-    kclass_dep = KClassDep('container-fluid')
-
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        self.kclass_default = KClassDefault('container-fluid')
+        super().__init__(*args, **self.update_kwargs(kwargs))
 
 class A(Tag):
     tagname = 'a'
@@ -66,7 +65,7 @@ class A(Tag):
 if __name__ == '__main__':
     print('play.py\n\n\n')
 
-    #print(Div())
+    print(Div())
     #print(Div(style='another'))
     print(FDiv())
     print(FDiv(style='b'))

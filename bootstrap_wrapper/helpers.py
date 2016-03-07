@@ -11,7 +11,10 @@ class UniqueStrings(list):
         self.append(items)
         self.sort = sort
         
-   
+    def clear(self):
+        self._items = []
+        return self._items
+
     def append(self, *items):
         def parse_string(string):
             strings = (s for s in string.split() if s not in self._items)
@@ -27,6 +30,10 @@ class UniqueStrings(list):
 
         parse_iterables(items)
         return self._items
+
+    def set(self, *items):
+        self.clear()
+        return self.append(items)
 
     def __str__(self):
         if self.sort is True:
@@ -44,6 +51,12 @@ class KwContainer:
 
     def append(self, *items):
         return self.value.append(*items)
+
+    def clear(self):
+        return self.value.clear()
+
+    def set(self, *items):
+        return self.value.set(items)
 
     def __call__(self):
         if self.value() is not '':
@@ -92,6 +105,20 @@ class KClassDep(KDep):
         except:
             return super().__call__(kwargs)
 
+class KClassDefault(KDefault):
+
+    def __init__(self, *items):
+        super().__init__(*items, key='_class')
+
+    def __call__(self, kwargs={}):
+        try:
+            attr = kwargs['cls']
+            self.append(attr)
+            del kwargs['cls']
+            kwargs[self.key] = self.value()
+            return kwargs
+        except:
+            return super().__call__(kwargs)
 
 
 def parse_into_single_tuple(items, retval=None):
