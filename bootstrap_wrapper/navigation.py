@@ -4,12 +4,13 @@
 
         Holds elements for our navigation classes. (Tabbar and Navbar)
 """
-from dominate.tags import comment
+from dominate.tags import comment, a
 
 from .helpers import KClassDep, KClassDefault, KDep, KDefault, KStyle, \
         parse_into_single_tuple
 from .elements import Tag, Ul, Dropdown, Div, Button
 
+# TABBAR ELEMENTS {{{
 class Tabbar(Div):
     """ Our top level tabbar element. """
 
@@ -151,3 +152,17 @@ class TabbarUl(Ul):
         elif len(tabs) > 1:
             return _tabs
         return
+#}}}
+
+class NavbarBrand(Div):
+
+    def __init__(self, text='', href=None, **kwargs):
+        self.kclass_dep = KClassDep('navbar-header')
+        self.kclass_default = KClassDefault()
+
+        if href is not None:
+            super().__init__(a(text, _class='navbar-brand', href=href), \
+                    **self.update_kwargs(kwargs))
+        else:
+            self.kclass_default.append('navbar-brand')
+            super().__init__(text, **self.update_kwargs(kwargs))

@@ -94,3 +94,11 @@ class NavigationTestCase(TestCase):
         tv.add(li(comment('These items could not be added to TabbarUl because they are not of class TabbarTab: Home home')))
         self.assertEqual(t.render(), tv.render())
 
+    def test_navbar_brand(self):
+        n = NavbarBrand('HHE')
+        tv = div('HHE', _class='navbar-header navbar-brand')
+        self.assertEqual(n.render(), tv.render())
+
+        n = NavbarBrand('HHE', href='#')
+        tv = div(a('HHE', href='#', _class='navbar-brand'), _class='navbar-header')
+        self.assertEqual(n.render(), tv.render())
