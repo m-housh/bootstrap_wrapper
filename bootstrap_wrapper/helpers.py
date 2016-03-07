@@ -6,9 +6,10 @@
 class UniqueStrings(list):
     """ Class that stores unique strings in a list. """
 
-    def __init__(self, *items):
+    def __init__(self, *items, sort=False):
         self._items = []
         self.append(items)
+        self.sort = sort
         
    
     def append(self, *items):
@@ -28,16 +29,18 @@ class UniqueStrings(list):
         return self._items
 
     def __str__(self):
-        return ' '.join(sorted(self._items))
+        if self.sort is True:
+            return ' '.join(sorted(self._items))
+        return ' '.join(self._items)
 
     def __call__(self):
         return str(self)
 
 class KwContainer:
 
-    def __init__(self, *items, key=''):
+    def __init__(self, *items, key='', sort=False):
         self.key = key
-        self.value = UniqueStrings(*items)
+        self.value = UniqueStrings(*items, sort)
 
     def append(self, *items):
         return self.value.append(*items)

@@ -1,11 +1,16 @@
 from markupsafe import Markup
+from functools import reduce
 from dominate.tags import *
-from bootstrap_wrapper.helpers import KDep, KDefault, KClassDep
+from bootstrap_wrapper.helpers import KDep, KDefault, KClassDep, KwContainer
 
 class Meta(type):
     tagname = None
 
 class Element(html_tag, metaclass=Meta):
+
+    def __init__(self, *args, **kwargs):
+        print('element init')
+        super().__init__(*args, **self.update_kwargs(kwargs))
 
 
     def _get_instances_of(self, kclass):
@@ -17,42 +22,59 @@ class Element(html_tag, metaclass=Meta):
                 if isinstance(item, kclass))
 
         return instances
-
-    def _clean_key_and_value_for(self, kclass):
-        # returns a cleaned key and the value of self.attributes for that key
-        key = html_tag.clean_attribute(kclass.key)
-        return (key, getattr(self, key, None))
-
-    
-    def update_attributes(self):
-
+   
+    def update_kwargs(self, kwargs):
+        # defaults need to go first, because they don't get applied if there is a value
+        # passed in kwargs
         defaults = self._get_instances_of(KDefault)
         for default in defaults:
-            key, value = self._clean_key_and_value_for(default)
-            if value is None:
-                self.attributes[key] = default.value()
-
+            if not hasattr(kwargs, default.key): 
+                kwargs = default(kwargs)
+        
         deps = self._get_instances_of(KDep)
         for dep in deps:
-            key, value = self._clean_key_and_value_for(dep)
-            if value is not None:
-                dep.append(value)
-
-            self.attributes[key] = dep.value()
-
-
+            kwargs = dep(kwargs)
+           
         
+        return kwargs
 
-    def render(self, *args, **kwargs):
-        """ Responsible for updating attributes on an instance before we call, super().render. """
-        # call defaults first, as they are skipped if there is a value for the key.
-        self.update_attributes()
-        return super().render(*args, **kwargs)
+class Tag(html_tag, metaclass=Meta):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **self.kwargs(kwargs))
+    
+    def _get_kclasses(self):
+        for item in self.__dict__.values():
+            if isinstance(item, KwContainer):
+                yield item
+        for item in self.__class__.__dict__.values():
+            if isinstance(item, KwContainer):
+                yield item
+
+    def kwargs(self, kwargs):
+        return list(map(lambda x: x(kwargs), self._get_kclasses())).pop()
 
 
+class Div(Element):
+    tagname = 'div'
 
+    kclass_dep = KClassDep('container')
+    kstyle = KDefault('border:solid 1px grey;', key='style', sort=False)
+
+class FDiv(Tag):
+    tagname = 'div'
+    kclass_dep = KClassDep('container-fluid')
+    kdep = KDep('a', key='style')
+    kstyle = KDefault('border:solid 1px grey;', key='style', sort=False)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
 if __name__ == '__main__':
     print('play.py\n\n\n')
 
+    print(Div())
+    print(Div(style='another'))
+    print(FDiv())
+    print(FDiv(style='b'))
 
