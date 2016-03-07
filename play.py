@@ -1,4 +1,5 @@
 from markupsafe import Markup
+from itertools import chain
 from functools import reduce
 from dominate.tags import *
 from bootstrap_wrapper.helpers import KDep, KDefault, KClassDep, KwContainer
@@ -6,75 +7,68 @@ from bootstrap_wrapper.helpers import KDep, KDefault, KClassDep, KwContainer
 class Meta(type):
     tagname = None
 
-class Element(html_tag, metaclass=Meta):
-
-    def __init__(self, *args, **kwargs):
-        print('element init')
-        super().__init__(*args, **self.update_kwargs(kwargs))
-
-
-    def _get_instances_of(self, kclass):
-        # get instances from class
-        instances = tuple(item for item in self.__class__.__dict__.values() \
-                if isinstance(item, kclass))
-        # get instances from instance
-        instances += tuple(item for item in self.__dict__.values() \
-                if isinstance(item, kclass))
-
-        return instances
-   
-    def update_kwargs(self, kwargs):
-        # defaults need to go first, because they don't get applied if there is a value
-        # passed in kwargs
-        defaults = self._get_instances_of(KDefault)
-        for default in defaults:
-            if not hasattr(kwargs, default.key): 
-                kwargs = default(kwargs)
-        
-        deps = self._get_instances_of(KDep)
-        for dep in deps:
-            kwargs = dep(kwargs)
-           
-        
-        return kwargs
-
 class Tag(html_tag, metaclass=Meta):
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **self.kwargs(kwargs))
+        super().__init__(*args, **self.update_kwargs(kwargs))
     
+    def _get_from_instance(self):
+        return (item for item in self.__dict__.values() \
+                if isinstance(item, KwContainer))
+
+    def _get_from_class(self):
+        return (item for item in self.__class__.__dict__.values() \
+                if isinstance(item, KwContainer))
+
     def _get_kclasses(self):
-        for item in self.__dict__.values():
-            if isinstance(item, KwContainer):
-                yield item
-        for item in self.__class__.__dict__.values():
-            if isinstance(item, KwContainer):
-                yield item
+        return chain(self._get_from_class(), self._get_from_instance())
+    
+    @staticmethod
+    def _kwargs(kwargs, lst):
+        # do defaults first:
+        defaults = list(filter(lambda x: isinstance(x, KDefault), lst))
+        if len(defaults) > 0:
+            kwargs = defaults[0](kwargs)
+            lst.remove(defaults[0])
+            return (kwargs, lst)
 
-    def kwargs(self, kwargs):
-        return list(map(lambda x: x(kwargs), self._get_kclasses())).pop()
+        kwargs = lst[0](kwargs)
+        return (kwargs, lst[1:])
 
+    def update_kwargs(self, kwargs):
+        lst = list(self._get_kclasses())
+        while len(lst) > 0:
+            kwargs, lst = self._kwargs(kwargs, lst)
 
-class Div(Element):
+        return kwargs
+
+class Div(Tag):
     tagname = 'div'
 
     kclass_dep = KClassDep('container')
-    kstyle = KDefault('border:solid 1px grey;', key='style', sort=False)
 
-class FDiv(Tag):
-    tagname = 'div'
+    def __init__(self, *args, **kwargs):
+        self.kdep = KDep('a', key='style')
+        self.kstyle = KDefault('border:solid 1px grey;', key='style', sort=False)
+        super().__init__(*args, **kwargs)
+
+class FDiv(Div):
+
     kclass_dep = KClassDep('container-fluid')
-    kdep = KDep('a', key='style')
-    kstyle = KDefault('border:solid 1px grey;', key='style', sort=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+class A(Tag):
+    tagname = 'a'
+
+
 if __name__ == '__main__':
     print('play.py\n\n\n')
 
-    print(Div())
-    print(Div(style='another'))
+    #print(Div())
+    #print(Div(style='another'))
     print(FDiv())
     print(FDiv(style='b'))
+    #print(A())
 

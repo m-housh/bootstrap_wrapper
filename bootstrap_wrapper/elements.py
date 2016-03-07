@@ -3,11 +3,12 @@
     ~~~~~~~~~~~
 """
 import sys
+from itertools import chain
 from markupsafe import Markup
 from dominate.tags import html_tag, div, li, span, th, td, tr
 
-from .helpers import KDep, KClassDep, parse_into_single_tuple
-#{{{
+from .helpers import KDep, KClassDep, KDefault, KwContainer, parse_into_single_tuple
+
 class ElementMeta(type):
     """ Adds tagname override to our elements. """
     tagname = None
@@ -20,21 +21,56 @@ class Element(html_tag, metaclass=ElementMeta):
         """ runs render through markupsafes Markup. """
         return Markup(super().render(*args, **kwargs))
 
+class Tag(Element):
 
-class Div(Element):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **self.update_kwargs(kwargs))
+    
+    def _get_from_instance(self):
+        return (item for item in self.__dict__.values() \
+                if isinstance(item, KwContainer))
+
+    def _get_from_class(self):
+        return (item for item in self.__class__.__dict__.values() \
+                if isinstance(item, KwContainer))
+
+    def _get_kclasses(self):
+        return chain(self._get_from_class(), self._get_from_instance())
+    
+    @staticmethod
+    def _kwargs(kwargs, lst):
+        # do defaults first:
+        defaults = list(filter(lambda x: isinstance(x, KDefault), lst))
+        if len(defaults) > 0:
+            kwargs = defaults[0](kwargs)
+            lst.remove(defaults[0])
+            return (kwargs, lst)
+
+        kwargs = lst[0](kwargs)
+        return (kwargs, lst[1:])
+
+    def update_kwargs(self, kwargs):
+        lst = list(self._get_kclasses())
+        while len(lst) > 0:
+            kwargs, lst = self._kwargs(kwargs, lst)
+
+        return kwargs
+
+
+
+class Div(Tag):
     """ A <div> tag.  Default class is `container`. """
     tagname = 'div'
 
     def __init__(self, *args, fluid=False, **kwargs):
-        kclass_dep = KClassDep()
         if fluid is True:
-            kclass_dep.append('container-fluid')
+            self.kclass_dep = KClassDep('container-fluid')
         else:
-            kclass_dep.append('container')
+            self.kclass_dep = KClassDep('container')
 
-        super().__init__(*args, **kclass_dep(kwargs))
+        super().__init__(*args, **kwargs)
 
-class Ul(Element):
+class Ul(Tag):
     """ A <ul> tag.  Makes sure all elements added are wrapped in <li> tag. """
     tagname = 'ul'
 
@@ -49,11 +85,9 @@ class Ul(Element):
         for item in _items:
             _type = getattr(type(item), 'tagname', None)
             if _type is 'li' or isinstance(item, li):
-                print('item is li')
                 super().add(item)
                 added.append(item)
             else:
-                print('item is not li')
                 if active is True:
                     element = super().add(li(item, _class='active'))
                 else:
@@ -65,7 +99,7 @@ class Ul(Element):
         else:
             return tuple(added)
         
-class Glyphicon(Element):
+class Glyphicon(Tag):
     """ A glyphicon element.
 
             If this element is called with an href then it returns and <a> tag with
@@ -73,23 +107,26 @@ class Glyphicon(Element):
     """
     tagname = 'span'
 
+
     def __init__(self, *args, icon_name='home', href=None, **kwargs):
         if href is not None:
             self.__class__.tagname = 'a'
             kwargs.update({'href': href})
         else:
             self.__class__.tagname = 'span'
+        
+        self.kclass_dep = KClassDep('glyphicon')
+        self.kclass_dep.append('glyphicon-{}'.format(icon_name))
 
-        kclass = KClassDep('glyphicon', 'glyphicon-{}'.format(icon_name))
-        super().__init__(*args, **kclass(kwargs))
+        super().__init__(*args, **kwargs)
 
-class DropdownButton(Element):
+class DropdownButton(Tag):
     tagname = 'a'
 
     def __init__(self, text=None, glyph=None, caret=True, **kwargs):
-        kclass_dep = KClassDep('dropdown-toggle')
-        kdata_toggle = KDep('dropdown', key='data-toggle')
-        khref = KDep('#', key='href')
+        self.kclass_dep = KClassDep('dropdown-toggle')
+        self.kdata_toggle = KDep('dropdown', key='data-toggle')
+        self.khref = KDep('#', key='href')
         
         items = span()
         if text is not None:
@@ -102,13 +139,9 @@ class DropdownButton(Element):
         if caret is True:
             items.add(span(_class='caret'))
 
-        kwargs = kclass_dep(kwargs)
-        kwargs = kdata_toggle(kwargs)
-        kwargs = khref(kwargs)
-
         super().__init__(items, **kwargs)
 
-class Dropdown(Element):
+class Dropdown(Tag):
     """ A dropdown element. """
     tagname = 'div'
 
@@ -120,9 +153,9 @@ class Dropdown(Element):
         else:
             type(self).tagname  = 'div'
 
-        kclass_dep = KClassDep('dropdown')
+        self.kclass_dep = KClassDep('dropdown')
 
-        super().__init__(**kclass_dep(kwargs))
+        super().__init__(**kwargs)
         
         # list of the menu items for the dropdown
         # all elements except for the dropdown button, get added to this menu.
@@ -154,8 +187,8 @@ class Dropdown(Element):
     def add(self, *items):
         """ Adds items to the menu. """
         return self.menu.add(items)
-#}}}
-class TableHeader(Element):
+
+class TableHeader(Tag):
     """ A table header element. """
     tagname = 'thead'
 
@@ -169,7 +202,7 @@ class TableHeader(Element):
         """
         return self.row.add(items)
 
-class TableRow(Element):
+class TableRow(Tag):
     """ A row in a TableHeader or TableBody element. """
     tagname = 'tr'
 
@@ -180,17 +213,17 @@ class TableRow(Element):
         self.header = header
 
         # sets class args, the success, info... adds highlighed color to the row.
-        kclass_dep = KClassDep()
+        self.kclass_dep = KClassDep()
         if info is True:
-            kclass_dep.append('info')
+            self.kclass_dep.append('info')
         elif success is True:
-            kclass_dep.append('success')
+            self.kclass_dep.append('success')
         elif warning is True:
-            kclass_dep.append('warning')
+            self.kclass_dep.append('warning')
         elif danger is True:
-            kclass_dep.append('danger')
+            self.kclass_dep.append('danger')
 
-        super().__init__(**kclass_dep(kwargs))
+        super().__init__(**kwargs)
         self.add(items)
 
     def add(self, *items):
@@ -214,7 +247,7 @@ class TableRow(Element):
                 
 
 
-class TableBody(Element):
+class TableBody(Tag):
     """ The body of a table element. """
     tagname = 'tbody'
     
@@ -233,21 +266,21 @@ class TableBody(Element):
             items = tuple((item for item in items if item not in error_items))
         return super().add(*items)
 
-class Table(Element):
+class Table(Tag):
     """ The top level table element. """
     tagname = 'table'
 
     def __init__(self, *items, bordered=False, striped=False, **kwargs):
-        kclass_deps = KClassDep('table')
+        self.kclass_deps = KClassDep('table')
         if bordered is True:
-            kclass_deps.append('table-bordered')
+            self.kclass_deps.append('table-bordered')
         if striped is True:
-            kclass_deps.append('table-striped')
+            self.kclass_deps.append('table-striped')
 
         self.body = None
         self.header = None
 
-        super().__init__(**kclass_deps(kwargs))
+        super().__init__(**kwargs)
         self.add(items)
 
     def add(self, *items):
@@ -273,17 +306,17 @@ class Table(Element):
 
         return self.body.add(tuple(items_lst))
 
-class ResponsiveTable(Element):
+class ResponsiveTable(Tag):
     """ A wrapper to make a table responsive. """
     #:TODO: make an table element that can have responsive as a param.
     tagname = 'div'
 
     def __init__(self, *items, **kwargs):
-        kclass_dep = KClassDep('table-responsive')
-        super().__init__(*items, **kclass_dep(kwargs))
+        self.kclass_dep = KClassDep('table-responsive')
+        super().__init__(*items, **kwargs)
            
 
-class Button(Element):
+class Button(Tag):
     """ A button element. """
     tagname = 'button'
 
@@ -295,24 +328,23 @@ class Button(Element):
         else:
             type(self).tagname = 'button'
 
-        kclass_dep = KClassDep('btn')
-        ktype = KDep('button', key='type')
+        self.kclass_dep = KClassDep('btn')
+        self.ktype = KDep('button', key='type')
 
         if primary is True:
-            kclass_dep.append('btn-primary')
+            self.kclass_dep.append('btn-primary')
         elif success is True:
-            kclass_dep.append('btn-success')
+            self.kclass_dep.append('btn-success')
         elif info is True:
-            kclass_dep.append('btn-info')
+            self.kclass_dep.append('btn-info')
         elif danger is True:
-            kclass_dep.append('btn-danger')
+            self.kclass_dep.append('btn-danger')
         elif link is True:
-            kclass_dep.append('btn-link')
+            self.kclass_dep.append('btn-link')
         else:
-            kclass_dep.append('btn-default')
+            self.kclass_dep.append('btn-default')
 
         if pull_right is True:
-            kclass_dep.append('pull-right')
+            self.kclass_dep.append('pull-right')
 
-        kwargs = ktype(kclass_dep(kwargs))
         super().__init__(*items, **kwargs)
