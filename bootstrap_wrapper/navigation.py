@@ -219,16 +219,13 @@ class Navbar(Tag):
             self.add_right(right_items)
 
 
-    def _get_brand_from(self, *items, add=True):
+    def _get_brand_from(self, *items):
         items = list(parse_into_single_tuple(items))
         brand = next((brand for brand in items if isinstance(brand, NavbarBrand)), None) 
-        if add is True and brand is not None:
+        if brand is not None:
             self.brand = self.container.children.insert(0, brand)
             items.remove(brand)
             return (self.brand, items)
-        elif brand is not None:
-            items.remove(brand)
-            return (brand, items)
         else:
             return (None, items)
 

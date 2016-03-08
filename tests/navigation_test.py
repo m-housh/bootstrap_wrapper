@@ -157,10 +157,10 @@ class NavigationTestCase(TestCase):
 
     def test_navbar(self):
         n = Navbar(
-            NavbarBrand('HHE', href='#'),
             NavbarDropdown(
                 DropdownButton(glyph='home')
             ),
+            brand=NavbarBrand('HHE', href='#'),
             right_items=(
                 NavbarDropdown(
                     DropdownButton(glyph='user')
