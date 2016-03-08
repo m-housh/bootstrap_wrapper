@@ -2,6 +2,7 @@ from unittest import TestCase
 from dominate.tags import *
 from wtforms import Form as _WForm
 from wtforms.fields import *
+from wtforms.validators import DataRequired
 
 from bootstrap_wrapper.forms import *
 
@@ -19,7 +20,7 @@ class FormsTestCase(TestCase):
 #}}}
     def test_quick_form(self): #{{{
         class F(_WForm):
-            name = StringField('Name')
+            name = StringField('Name', validators=[DataRequired()])
             email = StringField('Email')
             submit = SubmitField()
 
@@ -30,7 +31,7 @@ class FormsTestCase(TestCase):
                     label('Name', _for='name'),
                     br(),
                     input(type='text',_class='form-control', id='name', name='name', value=''),
-                    _class='form-group',
+                    _class='form-group required',
                 ),
                 div(
                     label('Email', _for='email'),
@@ -46,7 +47,7 @@ class FormsTestCase(TestCase):
                     value="Submit"
                 ),
                 method='POST',
-                role='form'
+                role='form',
         )
         
         # must be rendered inline for tests because of adding field's as raw tags inside

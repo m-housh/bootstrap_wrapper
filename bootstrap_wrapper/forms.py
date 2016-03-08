@@ -61,16 +61,11 @@ class FormGroup(Div):
 
     def __init__(self, *args, field=None, **kwargs):
         self.kclass_dep = KClassDep('form-group')
-        self.kclass_default = KClassDefault()
         if field is not None:
             if field.errors:
-                self.kclass_default.append('has-error')
+                self.kclass_dep.append('has-error')
             if field.flags.required:
-                self.kclass_default.append('required')
-
-        class_args = kwargs.pop('_class', None) or kwargs.pop('cls', None) or kwargs.pop('class_', None)
-        if class_args is not None:
-            self.kclass_default.append(class_args)
+                self.kclass_dep.append('required')
 
         super().__init__(**self.update_kwargs(kwargs))
 
