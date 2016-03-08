@@ -349,3 +349,7 @@ class Button(Tag):
             self.kclass_default.append('pull-right')
 
         super().__init__(*items, **self.update_kwargs(kwargs))
+
+
+class Small(Tag):
+    tagname = 'small'

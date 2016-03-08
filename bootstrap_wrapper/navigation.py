@@ -105,7 +105,7 @@ class TabPane(Div):
 
     def __init__(self, *items, id='', active=False, fade=True, **kwargs):
         self.kclass_dep = KClassDep('tab-pane')
-        self.kstyle = KStyle('border:solid 1px grey;')
+        self.kstyle = KStyle('border:solid 1px lightgrey;')
         self.kclass_default = KClassDefault('fade')
         if fade is False:
             self.kclass_default.clear()

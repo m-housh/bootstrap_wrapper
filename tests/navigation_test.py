@@ -34,9 +34,9 @@ class NavigationTestCase(TestCase):
             ),
             div(
                 div(h1('Home Content'), _class='tab-pane fade in active', id='home', \
-                        style='border:solid 1px grey;'),
+                        style='border:solid 1px lightgrey;'),
                 div(h1('Menu1 Content'), _class='tab-pane fade', id='menu1', \
-                        style='border:solid 1px grey;'),
+                        style='border:solid 1px lightgrey;'),
                 comment('These items are not of the correct class to add to the tabbar: Invalid Item'),
                 _class='tab-content'
             ),
@@ -64,7 +64,7 @@ class NavigationTestCase(TestCase):
         t = Tab('Home', (h1('Tab Content')), active=True)
         tv_tab = a('Home', href='#home', _class='btn btn-link', data_toggle='tab', type='button')
         tv_content = div(h1('Tab Content'), _class='tab-pane fade in active', \
-                style='border:solid 1px grey;', id='home')
+                style='border:solid 1px lightgrey;', id='home')
         
         self.assertEqual(t.tab.render(), tv_tab.render())
         self.assertEqual(t.content.render(), tv_content.render())

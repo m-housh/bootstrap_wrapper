@@ -197,3 +197,8 @@ class ElementsTestCase(TestCase):
         b = Button(danger=True, pull_right=True)
         tv = button(type='button', _class='btn btn-danger pull-right')
         self.assertEqual(b.render(), tv.render())
+
+    def test_small(self):
+        s = Small()
+        tv = small()
+        self.assertEqual(s.render(), tv.render())
