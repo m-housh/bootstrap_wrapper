@@ -155,7 +155,7 @@ class TabbarUl(Ul):
 #}}}
 
 class NavbarBrand(Div):
-
+    """ A navbar brand element.  Rendered to the far left before any navbar items. """
     def __init__(self, text='', href=None, **kwargs):
         self.kclass_dep = KClassDep('navbar-header')
         self.kclass_default = KClassDefault()
@@ -166,3 +166,102 @@ class NavbarBrand(Div):
         else:
             self.kclass_default.append('navbar-brand')
             super().__init__(text, **self.update_kwargs(kwargs))
+
+class NavbarItems(Ul):
+    """ A <ul> tag to hold all the elements of the navbar, optionally right-justified. """
+
+    def __init__(self, *items, right=False, **kwargs):
+        self.kclass_dep = KClassDep('nav', 'navbar-nav')
+        self.kclass_default = KClassDefault()
+
+        if right is True:
+            self.kclass_default.append('navbar-right')
+
+        super().__init__(**self.update_kwargs(kwargs))
+        if len(items) > 0:
+            self.add(items)
+
+
+class NavbarDropdown(Dropdown):
+    """ A dropdown menu for a navbar. """
+    def __init__(self, *items, **kwargs):
+        self.kclass_dep = KClassDep('dropdown')
+        super().__init__(*items, li=True, **self.update_kwargs(kwargs))
+
+class Navbar(Tag):
+    """ Our top level navbar tag. """
+    tagname = 'nav'
+
+    def __init__(self, *items, brand=None, inverse=False, right_only=False, top=False, \
+            right_items=None, **kwargs):
+
+        self.kclass_dep = KClassDep('navbar')
+        self.kclass_default = KClassDefault('navbar-default')
+        if inverse is True:
+            self.kclass_default.set('navbar-inverse')
+               
+               
+        self.items = None
+        self.right_only = right_only
+        self.top = top
+        self.right_items = None
+
+        super().__init__(**self.update_kwargs(kwargs))
+        self.container = super().add(Div(fluid=True))
+        
+        if brand is not None and isinstance(brand, NavbarBrand):
+            self.brand = self.container.add(brand)
+
+        if len(items) > 0:
+            self.add(items)
+
+        if right_items is not None:
+            self.add_right(right_items)
+
+
+    def _get_brand_from(self, *items, add=True):
+        items = list(parse_into_single_tuple(items))
+        brand = next((brand for brand in items if isinstance(brand, NavbarBrand)), None) 
+        if add is True and brand is not None:
+            self.brand = self.container.children.insert(0, brand)
+            items.remove(brand)
+            return (self.brand, items)
+        elif brand is not None:
+            items.remove(brand)
+            return (brand, items)
+        else:
+            return (None, items)
+
+
+    def add(self, *items):
+        """ Adds items to the navbar, unless right_only True, then it will send the items,
+            to add_right. 
+        """
+        items = parse_into_single_tuple(items)
+
+        
+        brand, items = self._get_brand_from(items)
+        if len(items) > 0:
+            if self.items is None and self.right_only is False:
+                self.items = self.container.add(NavbarItems(right=False))
+                return self.items.add(items)
+            elif self.right_only is True:
+                return self.add_right(items)
+        return
+
+    def add_right(self, *items):
+        """ Adds item to the right justified navbar list. """
+
+        items = parse_into_single_tuple(items)
+        
+        brand, items = self._get_brand_from(items)
+        if len(items) > 0:
+            if self.right_items is None:
+                self.right_items = self.container.add(NavbarItems(right=True))
+            return self.right_items.add(items)
+        return
+         
+
+
+
+

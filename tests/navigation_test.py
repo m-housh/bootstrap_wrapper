@@ -2,6 +2,7 @@ from unittest import TestCase
 from dominate.tags import *
 
 from bootstrap_wrapper.navigation import *
+from bootstrap_wrapper.elements import DropdownButton
 
 class NavigationTestCase(TestCase):
     
@@ -102,3 +103,115 @@ class NavigationTestCase(TestCase):
         n = NavbarBrand('HHE', href='#')
         tv = div(a('HHE', href='#', _class='navbar-brand'), _class='navbar-header')
         self.assertEqual(n.render(), tv.render())
+
+    def test_navbar_items(self):
+        n = NavbarItems(a('HHE', href='#'))
+        tv = ul(li(a('HHE', href='#')), _class='nav navbar-nav')
+        self.assertEqual(n.render(), tv.render())
+
+        n = NavbarItems(right=True)
+        tv = ul(_class='nav navbar-nav navbar-right')
+        self.assertEqual(n.render(), tv.render())
+
+    def test_navbar_dropdown(self):
+        n = NavbarDropdown(
+            DropdownButton(glyph='home')
+        )
+
+        tv = li(
+            a(
+                span(
+                    span(_class='glyphicon glyphicon-home'),
+                    span(_class='caret'),
+                ),
+                data_toggle='dropdown',
+                href='#',
+                _class='dropdown-toggle',
+            ),
+            ul(_class='dropdown-menu'),
+            _class='dropdown'
+        )
+        self.assertEqual(n.render(), tv.render())
+
+    def test_navbar_basic(self):
+        n = Navbar()
+        tv = nav(_class='navbar navbar-default')
+        _div = tv.add(div(_class='container-fluid'))
+        self.assertEqual(n.render(), tv.render())
+
+        n = Navbar(inverse=True)
+        tv = nav(_class='navbar navbar-inverse')
+        _div = tv.add(div(_class='container-fluid'))
+        self.assertEqual(n.render(), tv.render())
+
+        # test that brand get's added correctly
+        n.add(NavbarBrand('HHE', href='#'))
+        _div.add(div(a('HHE', href='#', _class='navbar-brand'), _class='navbar-header'))
+        self.assertEqual(n.render(), tv.render())
+
+        n = Navbar(a('Menu1', href='#'), right_only=True)
+        tv = nav(_class='navbar navbar-default')
+        _div = tv.add(div(_class='container-fluid'))
+        _div.add(ul(li(a('Menu1', href='#')), _class='nav navbar-nav navbar-right'))
+        self.assertEqual(n.render(), tv.render())
+
+    def test_navbar(self):
+        n = Navbar(
+            NavbarBrand('HHE', href='#'),
+            NavbarDropdown(
+                DropdownButton(glyph='home')
+            ),
+            right_items=(
+                NavbarDropdown(
+                    DropdownButton(glyph='user')
+                ),
+            ),
+        )
+
+
+        tv = nav(
+            div(
+                div(
+                    a('HHE', href='#', _class='navbar-brand'),
+                    _class='navbar-header',
+                ),
+                ul(
+                    li(
+                        a(
+                            span(
+                                span(_class='glyphicon glyphicon-home'),
+                                span(_class='caret'),
+                            ),
+                            data_toggle='dropdown',
+                            href='#',
+                            _class='dropdown-toggle'
+                        ),
+                        ul(_class='dropdown-menu'),
+                        _class='dropdown',
+                    ),
+                    _class='nav navbar-nav',
+                ),
+                ul(
+                    li(
+                        a(
+                            span(
+                                span(_class='glyphicon glyphicon-user'),
+                                span(_class='caret'),
+                            ),
+                            data_toggle='dropdown',
+                            href='#',
+                            _class='dropdown-toggle'
+                        ),
+                        ul(_class='dropdown-menu'),
+                        _class='dropdown',
+                    ),
+                    _class='nav navbar-nav navbar-right',
+                ),
+                _class='container-fluid'
+            ),
+            _class='navbar navbar-default'
+        )
+
+        self.assertEqual(n.render(inline=True), tv.render(inline=True))
+        
+        
