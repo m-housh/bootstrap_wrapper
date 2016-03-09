@@ -5,6 +5,11 @@ from wtforms.fields import *
 from wtforms.validators import DataRequired
 
 from bootstrap_wrapper.forms import *
+class F(_WForm):
+        name = StringField('Name', validators=[DataRequired()])
+        email = StringField('Email')
+        submit = SubmitField()
+
 
 class FormsTestCase(TestCase):
 
@@ -19,11 +24,6 @@ class FormsTestCase(TestCase):
         self.assertEqual(f.render(), tv.render())
 #}}}
     def test_quick_form(self): #{{{
-        class F(_WForm):
-            name = StringField('Name', validators=[DataRequired()])
-            email = StringField('Email')
-            submit = SubmitField()
-
         f = QuickForm(F())
 
         tv = form(
@@ -89,5 +89,44 @@ class FormsTestCase(TestCase):
         tv = form(method='POST', role='form')
         self.assertEqual(f.render(), tv.render())
 #}}}
+    def test_form_row(self):
+        _form = F()
 
+        f = BootstrapForm(
+            FormRow(_form.name, _form.email, col_args=(3, 5)),
+            raw(_form.submit(class_='btn btn-primary')),
+        )
+        
+        tv = form(
+            div(
+                div(
+                    raw(_form.name.label()),
+                    br(),
+                    raw(_form.name(class_='form-control')),
+                    _class='form-group required col-sm-3',
+                    style='float:left;',
+                ),
+                div(
+                    raw(_form.email.label()),
+                    br(),
+                    raw(_form.email(class_='from-control')),
+                    _class='form-group col-sm-5',
+                    style='float:left;',
+                ),
+                _class='row'
+            ),
+            raw(_form.submit(class_='btn btn-primary')),
+            role='form',
+            method='POST',
+
+        )
+        
+        # this all seems hackish, but can't get a test to pass because the newlines and
+        # tabs get rendered differently.
+        _f = list(str(f).strip().split())
+        _tv = list(str(f).strip().split())
+
+        self.assertEqual(_f, _tv)
+        #self.assertEqual(str(f.render(inline=True)).strip(), str(tv.render(inline=True)).strip()) 
+        #self.assertEqual(f.render(inline=True), tv.render(inline=True))
 

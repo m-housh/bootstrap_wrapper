@@ -236,10 +236,8 @@ class Navbar(Tag):
             to add_right. 
         """
         items = parse_into_single_tuple(items)
-        print('add called with items', items, file=sys.stderr)
         
         brand, items = self._get_brand_from(items)
-        print('brand', brand, 'items', items, file=sys.stderr)
         if len(items) > 0:
             if self.items is None and self.right_only is False:
                 self.items = self.container.add(NavbarItems(right=False))

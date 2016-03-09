@@ -53,6 +53,29 @@ class QuickForm(BootstrapForm):
                         button_class += ' pull-right'
                     self.add(raw(field(class_=button_class)))
 
+class FormRow(Div):
+    """ Allows the creation of row with form fields inline with labels above them. """
+
+    def __init__(self, *fields, col_args=None, **kwargs):
+        self.kclass_dep = KClassDep('row')
+        super().__init__(**self.update_kwargs(kwargs))
+
+        def _col(n):
+            return 'col-sm-{}'.format(n)
+        
+        count = 0
+        while count < len(fields):
+            _kwargs = {}
+            if count <= len(col_args):
+                _kwargs['_class'] = _col(col_args[count])
+
+            _kwargs['style'] = 'float:left;'
+            self.add(FormGroup(field=fields[count], **_kwargs))
+            count += 1
+
+                
+        
+
 
 class FormGroup(Div):
     """ A Form Group holds a label, field, and any errors associated with a field.
