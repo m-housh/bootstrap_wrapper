@@ -4,6 +4,7 @@
 
         Holds elements for our navigation classes. (Tabbar and Navbar)
 """
+import sys
 from dominate.tags import comment, a
 
 from .helpers import KClassDep, KClassDefault, KDep, KDefault, KStyle, \
@@ -235,15 +236,17 @@ class Navbar(Tag):
             to add_right. 
         """
         items = parse_into_single_tuple(items)
-
+        print('add called with items', items, file=sys.stderr)
         
         brand, items = self._get_brand_from(items)
+        print('brand', brand, 'items', items, file=sys.stderr)
         if len(items) > 0:
             if self.items is None and self.right_only is False:
                 self.items = self.container.add(NavbarItems(right=False))
                 return self.items.add(items)
             elif self.right_only is True:
                 return self.add_right(items)
+            return self.items.add(items)
         return
 
     def add_right(self, *items):
