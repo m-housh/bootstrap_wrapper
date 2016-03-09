@@ -5,7 +5,8 @@
         Holds form elements.
 """
 from dominate.util import raw
-from dominate.tags import br, p
+from dominate.tags import br, p, div
+from wtforms.fields import SubmitField
 
 from .helpers import KDep, KClassDep, KDefault, KClassDefault
 from .elements import Tag, Div
@@ -66,11 +67,17 @@ class FormRow(Div):
         count = 0
         while count < len(fields):
             _kwargs = {}
-            if count <= len(col_args):
+            if count < len(col_args):
                 _kwargs['_class'] = _col(col_args[count])
 
             _kwargs['style'] = 'float:left;'
-            self.add(FormGroup(field=fields[count], **_kwargs))
+
+            field = fields[count]
+            if isinstance(field, SubmitField):
+                _kwargs['style'] += 'padding-top:25px;'
+                self.add(div(raw(field(class_='btn btn-primary')), **_kwargs))
+            else:
+                self.add(FormGroup(field=field, **_kwargs))
             count += 1
 
                 
