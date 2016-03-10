@@ -70,7 +70,9 @@ class FormRow(Div):
         if offset is not None:
             self.add(div(_class=_col(offset)))
 
-       
+        if col_args is None:
+            col_args = ()
+
         count = 0
         while count < len(fields):  
             # _kwargs get passed to the form group or div if it's a submit field
