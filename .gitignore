@@ -1,5 +1,4 @@
 *.coverage
 
 play.py
-__init__.py
 
