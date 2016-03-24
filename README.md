@@ -12,4 +12,9 @@ I have not added any licenses or copyrights anyone is free to use/hack or do wha
 
 This is not an offical python package so to use you should clone it into your project.
 
-```git clone http://github.com/m-housh/bootstrap_wrapper.git```
+#### To Use - Clone into your project directory
+----
+```
+git clone https://github.com/m-housh/bootstrap_wrapper.git
+pip install dominate # python dependency
+```
