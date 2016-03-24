@@ -4,10 +4,13 @@
 
         Holds form elements.
 """
+import sys
 from dominate.util import raw
-from dominate.tags import br, p
+from dominate.tags import br, p, div
+from functools import reduce
+from wtforms.fields import SubmitField, SelectMultipleField
 
-from .helpers import KDep, KClassDep, KDefault, KClassDefault
+from .helpers import KDep, KClassDep, KDefault, KClassDefault, KStyle
 from .elements import Tag, Div
 
 
@@ -56,21 +59,37 @@ class QuickForm(BootstrapForm):
 class FormRow(Div):
     """ Allows the creation of row with form fields inline with labels above them. """
 
-    def __init__(self, *fields, col_args=None, **kwargs):
+    def __init__(self, *fields, col_args=None, offset=None, **kwargs):
         self.kclass_dep = KClassDep('row')
+        self.kstyle = KStyle('padding-bottom: 10px;', 'padding-top:20px;')
         super().__init__(**self.update_kwargs(kwargs))
 
         def _col(n):
             return 'col-sm-{}'.format(n)
-        
+
+        if offset is not None:
+            self.add(div(_class=_col(offset)))
+
+        if col_args is None:
+            col_args = ()
+
         count = 0
-        while count < len(fields):
+        while count < len(fields):  
+            # _kwargs get passed to the form group or div if it's a submit field
             _kwargs = {}
-            if count <= len(col_args):
+            if count < len(col_args):
                 _kwargs['_class'] = _col(col_args[count])
 
             _kwargs['style'] = 'float:left;'
-            self.add(FormGroup(field=fields[count], **_kwargs))
+
+            field = fields[count]
+
+            if isinstance(field, SubmitField):
+                _kwargs['style'] += 'padding-top:25px;'
+                self.add(div(raw(field(class_='btn btn-primary')), **_kwargs))
+            else:
+                self.add(FormGroup(field=field, **_kwargs))
+
             count += 1
 
                 

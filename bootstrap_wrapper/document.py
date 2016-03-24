@@ -86,7 +86,8 @@ class BootstrapDocument(Document):
                 and item.top is True), None)
 
         if top_nav is not None:
-            self.navbar = self.body.children.insert(0, top_nav)
+            self.body.children.insert(0, top_nav)
+            self.navbar = top_nav
             items = list(items)
             items.remove(top_nav)
 

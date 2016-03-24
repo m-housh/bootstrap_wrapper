@@ -88,9 +88,9 @@ class Ul(Tag):
                 added.append(item)
             else:
                 if active is True:
-                    element = super().add(li(item, _class='active'))
+                    element = super().add(li(item, _class='active', style='float:left;'))
                 else:
-                    element = super().add(li(item))
+                    element = super().add(li(item, style='float:left;'))
                 added.append(element)
 
         if len(added) == 1:

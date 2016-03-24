@@ -12,11 +12,12 @@ from .helpers import KClassDep, KClassDefault, KDep, KDefault, KStyle, \
 from .elements import Tag, Ul, Dropdown, Div, Button
 
 # TABBAR ELEMENTS {{{
-class Tabbar(Div):
+class Tabbar(Tag):
+    tagname = 'div'
     """ Our top level tabbar element. """
 
     def __init__(self, *items, pills=False, **kwargs):
-        super().__init__(fluid=True, **kwargs)
+        super().__init__(**kwargs)
         self.tabs = super().add(TabbarUl(pills=pills))
         self.content = super().add(TabContent())
         if len(items) > 0:
