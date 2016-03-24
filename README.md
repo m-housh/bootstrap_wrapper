@@ -1,6 +1,6 @@
 # Bootstrap Wrapper
 
-This is a python library that adds bootstrap capabilities to dominate.  Use at your own risk...  
+This is a python library that adds bootstrap capabilities to dominate.  Use at your own risk...  Only tested and used with python 3.5 not sure of compatablity with other python versions.
 
 This is heavily inspired by Flask-Nav and Flask-Bootstrap.
 
