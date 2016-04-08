@@ -259,8 +259,3 @@ class Navbar(Tag):
                 self.right_items = self.container.add(NavbarItems(right=True))
             return self.right_items.add(items)
         return
-         
-
-
-
-
