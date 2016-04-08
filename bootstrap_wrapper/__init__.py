@@ -11,5 +11,5 @@ __all__ = ['Document', 'BootstrapDocument', 'ElementMeta', 'Element', 'Tag', 'Di
         'Glyphicon', 'DropdownButton', 'Dropdown', 'TableHeader', 'TableRow', 'TableBody', \
         'Table', 'ResponsiveTable', 'Button', 'Small', 'Tabbar', 'Tab', 'TabbarTab', \
         'TabContent', 'TabPane', 'TabbarUl', 'NavbarBrand', 'NavbarItems', \
-        'NavbarDropdown', 'Navbar', 'BootstrapFrom', 'QuickForm', 'FormRow', 'FromGroupe', \
+        'NavbarDropdown', 'Navbar', 'BootstrapForm', 'QuickForm', 'FormRow', 'FormGroup', \
         'FormField']
