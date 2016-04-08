@@ -8,6 +8,6 @@ setup(
         author_email='mhoush@houshhomeenergy.com',
         url='https://github.com/m-housh/bootstrap_wrapper.git',
         packages=['bootstrap_wrapper'],
-        requires=['dominate'],
+        install_requires=['dominate'],
     )
 
