@@ -38,7 +38,7 @@ class BootstrapDocument(Document):
     """
 
     def __init__(self, *args, \
-            bootstrap_url='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6', \
+            bootstrap_url='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6', \
             jquery_url='https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js',
             static_folder=None,
             **kwargs):
