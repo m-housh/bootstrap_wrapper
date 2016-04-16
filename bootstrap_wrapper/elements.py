@@ -316,7 +316,36 @@ class ResponsiveTable(Div):
         # when subclassing an element you must call self.update_kwargs or it will not 
         # gaurantee the right kwargs being sent the html_tag instantiation.
         super().__init__(*items, **self.update_kwargs(kwargs))
-           
+
+
+class A(Tag):
+    tagname = 'a'
+
+    def __init__(self, *args, href=None, button_type='link', pull_right=False, **kwargs):
+        self.kclass_dep = KClassDep('btn')
+        self.kclass_default = KClassDefault()
+        self.khref = KDep(href, key='href')
+
+
+        self.kclass_default.append({
+            'link': 'btn-link',
+            'primary': 'btn-primary',
+            'info': 'btn-info',
+            'success': 'btn-success',
+            'danger': 'btn-danger',
+            'default': 'btn-default',
+            '_default': 'btn-link'}.get(button_type, '_default'))
+
+        if pull_right is True:
+            self.kclass_default.append('pull-right')
+
+       
+        super().__init__(*args, **self.update_kwargs(kwargs))
+
+
+
+
+
 
 class Button(Tag):
     """ A button element. """
