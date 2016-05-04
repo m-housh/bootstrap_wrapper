@@ -7,11 +7,12 @@ setup(
         version='0.1.0',
 
         description='Dominate Bootstrap Wrapper',
-        long_description=open('README.md').read(),
+        long_description=open('README.rst').read(),
 
         author='Michael Housh',
         author_email='mhoush@houshhomeenergy.com',
         url='https://github.com/m-housh/bootstrap_wrapper.git',
+
         packages=['bootstrap_wrapper'],
         install_requires=['dominate', 'wtforms'],
     )

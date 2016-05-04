@@ -1,4 +1,5 @@
-# Bootstrap Wrapper
+Bootstrap Wrapper
+=================
 
 This is a python library that adds bootstrap capabilities to dominate.  Use at your own risk...  Only tested and used with python 3.5 not sure of compatablity with other python versions.
 
@@ -12,8 +13,8 @@ I have not added any licenses or copyrights anyone is free to use/hack or do wha
 
 This is not an offical python package so to use you should clone it into your project.
 
-#### To Use - Clone into your project directory
-----
+To Use - Clone into your project directory
+------------------------------------------
 ```
 git clone https://github.com/m-housh/bootstrap_wrapper.git
 pip install dominate # python dependency
