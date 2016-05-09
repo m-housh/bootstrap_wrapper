@@ -19,22 +19,22 @@ class Document(document):
 class BootstrapDocument(Document):
     """ BootstrapDocument.
 
-        Adds bootstrap and jquery to a document, with the option to specify a local
-        file system path to load it from or a cdn path.
+Adds bootstrap and jquery to a document, with the option to specify a local
+file system path to load it from or a cdn path.
 
-        The following tags are available to add items to.
+The following tags are available to add items to.
 
-        :head:          The head tag of the document.
-        :meta:          Stores meta tags inside of the head tag.
-        :content:       A <div class='container' id='content'> tag.
-                        Calling the add method of a document adds items inside
-                        of this tag.
-        :body:          The body of the document.
-        :scripts:       A <div> below the content, to add <script> tags to.
+:head:          The head tag of the document.
+:meta:          Stores meta tags inside of the head tag.
+:content:       A <div class='container' id='content'> tag.
+                Calling the add method of a document adds items inside
+                of this tag.
+:body:          The body of the document.
+:scripts:       A <div> below the content, to add <script> tags to.
 
-        :param bootstrap_url:   A cdn url or path to a static folder.
-        :param jquery_url:      A cdn url or path to a static folder.
-        :param static_folder:   A path in the file system to load from.
+:param bootstrap_url:   A cdn url or path to a static folder.
+:param jquery_url:      A cdn url or path to a static folder.
+:param static_folder:   A path in the file system to load from.
     """
 
     def __init__(self, *args, \

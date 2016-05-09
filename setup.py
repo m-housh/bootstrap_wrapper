@@ -14,6 +14,6 @@ setup(
         url='https://github.com/m-housh/bootstrap_wrapper.git',
 
         packages=['bootstrap_wrapper'],
-        install_requires=['dominate', 'wtforms'],
+        install_requires=['dominate', 'wtforms', 'markupsafe'],
     )
 
