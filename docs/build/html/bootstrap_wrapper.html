@@ -1,0 +1,1136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>bootstrap_wrapper package &mdash; bootstrap-wrapper 0.2.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="bootstrap-wrapper 0.2.0 documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="bootstrap-wrapper-package">
+<h1>bootstrap_wrapper package<a class="headerlink" href="#bootstrap-wrapper-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-bootstrap_wrapper.document">
+<span id="bootstrap-wrapper-document-module"></span><h2>bootstrap_wrapper.document module<a class="headerlink" href="#module-bootstrap_wrapper.document" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="v2-document">
+<h3>v2.document<a class="headerlink" href="#v2-document" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Holds our base document template for a bootstrap document.</div></blockquote>
+<dl class="class">
+<dt id="bootstrap_wrapper.document.BootstrapDocument">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.document.</code><code class="descname">BootstrapDocument</code><span class="sig-paren">(</span><em>*args</em>, <em>*</em>, <em>bootstrap_url='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6'</em>, <em>jquery_url='https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js'</em>, <em>static_folder=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.document.BootstrapDocument" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.document.Document" title="bootstrap_wrapper.document.Document"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.document.Document</span></code></a></p>
+<p>BootstrapDocument.</p>
+<p>Adds bootstrap and jquery to a document, with the option to specify a local
+file system path to load it from or a cdn path.</p>
+<p>The following tags are available to add items to.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Head:</th><td class="field-body"><p class="first">The head tag of the document.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Meta:</th><td class="field-body"><p class="first">Stores meta tags inside of the head tag.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Content:</th><td class="field-body"><p class="first">A &lt;div class=&#8217;container&#8217; id=&#8217;content&#8217;&gt; tag.
+Calling the add method of a document adds items inside
+of this tag.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Body:</th><td class="field-body"><p class="first">The body of the document.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Scripts:</th><td class="field-body"><p class="first">A &lt;div&gt; below the content, to add &lt;script&gt; tags to.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>bootstrap_url</strong> &#8211; A cdn url or path to a static folder.</li>
+<li><strong>jquery_url</strong> &#8211; A cdn url or path to a static folder.</li>
+<li><strong>static_folder</strong> &#8211; A path in the file system to load from.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="bootstrap_wrapper.document.BootstrapDocument.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.document.BootstrapDocument.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds items to the content div by default.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.document.Document">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.document.</code><code class="descname">Document</code><span class="sig-paren">(</span><em>title='Dominate'</em>, <em>doctype='&lt;!DOCTYPE html&gt;'</em>, <em>request=None</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.document.Document" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">dominate.document.document</span></code></p>
+<p>Just passes render through Markup.</p>
+<dl class="method">
+<dt id="bootstrap_wrapper.document.Document.render">
+<code class="descname">render</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.document.Document.render" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-bootstrap_wrapper.elements">
+<span id="bootstrap-wrapper-elements-module"></span><h2>bootstrap_wrapper.elements module<a class="headerlink" href="#module-bootstrap_wrapper.elements" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="v2-elements">
+<h3>v2.elements<a class="headerlink" href="#v2-elements" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="bootstrap_wrapper.elements.A">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.elements.</code><code class="descname">A</code><span class="sig-paren">(</span><em>*args</em>, <em>*</em>, <em>href=None</em>, <em>button_type='link'</em>, <em>pull_right=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.A" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<dl class="attribute">
+<dt id="bootstrap_wrapper.elements.A.tagname">
+<code class="descname">tagname</code><em class="property"> = 'a'</em><a class="headerlink" href="#bootstrap_wrapper.elements.A.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.elements.Button">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.elements.</code><code class="descname">Button</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>anchor=False</em>, <em>primary=False</em>, <em>success=False</em>, <em>info=False</em>, <em>danger=False</em>, <em>link=False</em>, <em>pull_right=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.Button" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>A button element.</p>
+<dl class="attribute">
+<dt id="bootstrap_wrapper.elements.Button.tagname">
+<code class="descname">tagname</code><em class="property"> = 'button'</em><a class="headerlink" href="#bootstrap_wrapper.elements.Button.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.elements.Div">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.elements.</code><code class="descname">Div</code><span class="sig-paren">(</span><em>*args</em>, <em>*</em>, <em>fluid=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.Div" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>A &lt;div&gt; tag.  Default class is <cite>container</cite>.</p>
+<dl class="attribute">
+<dt id="bootstrap_wrapper.elements.Div.tagname">
+<code class="descname">tagname</code><em class="property"> = 'div'</em><a class="headerlink" href="#bootstrap_wrapper.elements.Div.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.elements.Dropdown">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.elements.</code><code class="descname">Dropdown</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>li=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.Dropdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>A dropdown element.</p>
+<dl class="method">
+<dt id="bootstrap_wrapper.elements.Dropdown.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.Dropdown.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds items to the menu.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bootstrap_wrapper.elements.Dropdown.tagname">
+<code class="descname">tagname</code><em class="property"> = 'div'</em><a class="headerlink" href="#bootstrap_wrapper.elements.Dropdown.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.elements.DropdownButton">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.elements.</code><code class="descname">DropdownButton</code><span class="sig-paren">(</span><em>text=None</em>, <em>glyph=None</em>, <em>caret=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.DropdownButton" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<dl class="attribute">
+<dt id="bootstrap_wrapper.elements.DropdownButton.tagname">
+<code class="descname">tagname</code><em class="property"> = 'a'</em><a class="headerlink" href="#bootstrap_wrapper.elements.DropdownButton.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.elements.Element">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.elements.</code><code class="descname">Element</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.Element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">dominate.tags.html_tag</span></code></p>
+<p>Our base class for all of our tags.</p>
+<dl class="method">
+<dt id="bootstrap_wrapper.elements.Element.render">
+<code class="descname">render</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.Element.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>runs render through markupsafes Markup.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.elements.ElementMeta">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.elements.</code><code class="descname">ElementMeta</code><a class="headerlink" href="#bootstrap_wrapper.elements.ElementMeta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">type</span></code></p>
+<p>Adds tagname override to our elements.</p>
+<dl class="attribute">
+<dt id="bootstrap_wrapper.elements.ElementMeta.tagname">
+<code class="descname">tagname</code><em class="property"> = None</em><a class="headerlink" href="#bootstrap_wrapper.elements.ElementMeta.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.elements.Glyphicon">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.elements.</code><code class="descname">Glyphicon</code><span class="sig-paren">(</span><em>*args</em>, <em>*</em>, <em>icon_name='home'</em>, <em>href=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.Glyphicon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>A glyphicon element.</p>
+<p>If this element is called with an href then it returns and &lt;a&gt; tag with
+the appropriate class&#8217;s, else it defaults to a &lt;span&gt; tag.</p>
+<dl class="attribute">
+<dt id="bootstrap_wrapper.elements.Glyphicon.tagname">
+<code class="descname">tagname</code><em class="property"> = 'span'</em><a class="headerlink" href="#bootstrap_wrapper.elements.Glyphicon.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.elements.ResponsiveTable">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.elements.</code><code class="descname">ResponsiveTable</code><span class="sig-paren">(</span><em>*items</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.ResponsiveTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Div" title="bootstrap_wrapper.elements.Div"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Div</span></code></a></p>
+<p>A wrapper to make a table responsive.</p>
+<dl class="attribute">
+<dt id="bootstrap_wrapper.elements.ResponsiveTable.tagname">
+<code class="descname">tagname</code><em class="property"> = 'div'</em><a class="headerlink" href="#bootstrap_wrapper.elements.ResponsiveTable.tagname" title="Permalink to this definition">¶</a></dt>
+<dd><p>TODO: make an table element that can have responsive as a param.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.elements.Small">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.elements.</code><code class="descname">Small</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.Small" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<dl class="attribute">
+<dt id="bootstrap_wrapper.elements.Small.tagname">
+<code class="descname">tagname</code><em class="property"> = 'small'</em><a class="headerlink" href="#bootstrap_wrapper.elements.Small.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.elements.Table">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.elements.</code><code class="descname">Table</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>bordered=False</em>, <em>striped=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.Table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>The top level table element.</p>
+<dl class="method">
+<dt id="bootstrap_wrapper.elements.Table.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.Table.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds items to the table body.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bootstrap_wrapper.elements.Table.tagname">
+<code class="descname">tagname</code><em class="property"> = 'table'</em><a class="headerlink" href="#bootstrap_wrapper.elements.Table.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.elements.TableBody">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.elements.</code><code class="descname">TableBody</code><span class="sig-paren">(</span><em>*items</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.TableBody" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>The body of a table element.</p>
+<dl class="method">
+<dt id="bootstrap_wrapper.elements.TableBody.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.TableBody.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make&#8217;s sure all items are a TableRow or tr tag.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bootstrap_wrapper.elements.TableBody.tagname">
+<code class="descname">tagname</code><em class="property"> = 'tbody'</em><a class="headerlink" href="#bootstrap_wrapper.elements.TableBody.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.elements.TableHeader">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.elements.</code><code class="descname">TableHeader</code><span class="sig-paren">(</span><em>*items</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.TableHeader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>A table header element.</p>
+<dl class="method">
+<dt id="bootstrap_wrapper.elements.TableHeader.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.TableHeader.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds items to the row.  
+Makes sure items are wrapped in &lt;th&gt; tag.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bootstrap_wrapper.elements.TableHeader.tagname">
+<code class="descname">tagname</code><em class="property"> = 'thead'</em><a class="headerlink" href="#bootstrap_wrapper.elements.TableHeader.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.elements.TableRow">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.elements.</code><code class="descname">TableRow</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>header=False</em>, <em>info=False</em>, <em>success=False</em>, <em>warning=False</em>, <em>danger=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.TableRow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>A row in a TableHeader or TableBody element.</p>
+<dl class="method">
+<dt id="bootstrap_wrapper.elements.TableRow.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.TableRow.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds items to the table row, items are wrapped in a &lt;td&gt; tag if self.header is
+False, else they are wrapped in a &lt;th&gt; tag.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bootstrap_wrapper.elements.TableRow.tagname">
+<code class="descname">tagname</code><em class="property"> = 'tr'</em><a class="headerlink" href="#bootstrap_wrapper.elements.TableRow.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.elements.Tag">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.elements.</code><code class="descname">Tag</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.Tag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Element" title="bootstrap_wrapper.elements.Element"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Element</span></code></a></p>
+<dl class="method">
+<dt id="bootstrap_wrapper.elements.Tag.update_kwargs">
+<code class="descname">update_kwargs</code><span class="sig-paren">(</span><em>kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.Tag.update_kwargs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.elements.Ul">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.elements.</code><code class="descname">Ul</code><span class="sig-paren">(</span><em>*items</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.Ul" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>A &lt;ul&gt; tag.  Makes sure all elements added are wrapped in &lt;li&gt; tag.</p>
+<dl class="method">
+<dt id="bootstrap_wrapper.elements.Ul.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>active=False</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.elements.Ul.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bootstrap_wrapper.elements.Ul.tagname">
+<code class="descname">tagname</code><em class="property"> = 'ul'</em><a class="headerlink" href="#bootstrap_wrapper.elements.Ul.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-bootstrap_wrapper.forms">
+<span id="bootstrap-wrapper-forms-module"></span><h2>bootstrap_wrapper.forms module<a class="headerlink" href="#module-bootstrap_wrapper.forms" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="v2-forms">
+<h3>v2.forms<a class="headerlink" href="#v2-forms" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Holds form elements.</div></blockquote>
+<dl class="class">
+<dt id="bootstrap_wrapper.forms.BootstrapForm">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.forms.</code><code class="descname">BootstrapForm</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>action=None</em>, <em>method='POST'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.forms.BootstrapForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>Top level form element.</p>
+<dl class="attribute">
+<dt id="bootstrap_wrapper.forms.BootstrapForm.tagname">
+<code class="descname">tagname</code><em class="property"> = 'form'</em><a class="headerlink" href="#bootstrap_wrapper.forms.BootstrapForm.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.forms.FormField">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.forms.</code><code class="descname">FormField</code><span class="sig-paren">(</span><em>type</em>, <em>id</em>, <em>place_holder=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.forms.FormField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>A basic form field.</p>
+<dl class="attribute">
+<dt id="bootstrap_wrapper.forms.FormField.is_single">
+<code class="descname">is_single</code><em class="property"> = True</em><a class="headerlink" href="#bootstrap_wrapper.forms.FormField.is_single" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bootstrap_wrapper.forms.FormField.tagname">
+<code class="descname">tagname</code><em class="property"> = 'input'</em><a class="headerlink" href="#bootstrap_wrapper.forms.FormField.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.forms.FormGroup">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.forms.</code><code class="descname">FormGroup</code><span class="sig-paren">(</span><em>*args</em>, <em>*</em>, <em>field=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.forms.FormGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Div" title="bootstrap_wrapper.elements.Div"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Div</span></code></a></p>
+<p>A Form Group holds a label, field, and any errors associated with a field.
+This is primarily used with a WTForm field.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.forms.FormRow">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.forms.</code><code class="descname">FormRow</code><span class="sig-paren">(</span><em>*fields</em>, <em>*</em>, <em>col_args=None</em>, <em>offset=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.forms.FormRow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Div" title="bootstrap_wrapper.elements.Div"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Div</span></code></a></p>
+<p>Allows the creation of row with form fields inline with labels above them.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.forms.QuickForm">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.forms.</code><code class="descname">QuickForm</code><span class="sig-paren">(</span><em>form=None</em>, <em>pull_right=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.forms.QuickForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.forms.BootstrapForm" title="bootstrap_wrapper.forms.BootstrapForm"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.forms.BootstrapForm</span></code></a></p>
+<p>A helper to render a WTForms Form.</p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-bootstrap_wrapper.helpers">
+<span id="bootstrap-wrapper-helpers-module"></span><h2>bootstrap_wrapper.helpers module<a class="headerlink" href="#module-bootstrap_wrapper.helpers" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="v2-helpers">
+<h3>v2.helpers<a class="headerlink" href="#v2-helpers" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="bootstrap_wrapper.helpers.KClassDefault">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.helpers.</code><code class="descname">KClassDefault</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.helpers.KClassDefault" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.helpers.KDefault" title="bootstrap_wrapper.helpers.KDefault"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.helpers.KDefault</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.helpers.KClassDep">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.helpers.</code><code class="descname">KClassDep</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.helpers.KClassDep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.helpers.KDep" title="bootstrap_wrapper.helpers.KDep"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.helpers.KDep</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.helpers.KDefault">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.helpers.</code><code class="descname">KDefault</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>key=''</em>, <em>sort=False</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.helpers.KDefault" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.helpers.KwContainer" title="bootstrap_wrapper.helpers.KwContainer"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.helpers.KwContainer</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.helpers.KDep">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.helpers.</code><code class="descname">KDep</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>key=''</em>, <em>sort=False</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.helpers.KDep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.helpers.KwContainer" title="bootstrap_wrapper.helpers.KwContainer"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.helpers.KwContainer</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.helpers.KStyle">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.helpers.</code><code class="descname">KStyle</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.helpers.KStyle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.helpers.KDefault" title="bootstrap_wrapper.helpers.KDefault"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.helpers.KDefault</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.helpers.KwContainer">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.helpers.</code><code class="descname">KwContainer</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>key=''</em>, <em>sort=False</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.helpers.KwContainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="bootstrap_wrapper.helpers.KwContainer.append">
+<code class="descname">append</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.helpers.KwContainer.append" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bootstrap_wrapper.helpers.KwContainer.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.helpers.KwContainer.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bootstrap_wrapper.helpers.KwContainer.set">
+<code class="descname">set</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.helpers.KwContainer.set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.helpers.UniqueStrings">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.helpers.</code><code class="descname">UniqueStrings</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>sort=False</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.helpers.UniqueStrings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">list</span></code></p>
+<p>Class that stores unique strings in a list.</p>
+<dl class="method">
+<dt id="bootstrap_wrapper.helpers.UniqueStrings.append">
+<code class="descname">append</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.helpers.UniqueStrings.append" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bootstrap_wrapper.helpers.UniqueStrings.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.helpers.UniqueStrings.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bootstrap_wrapper.helpers.UniqueStrings.set">
+<code class="descname">set</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.helpers.UniqueStrings.set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="bootstrap_wrapper.helpers.parse_into_single_tuple">
+<code class="descclassname">bootstrap_wrapper.helpers.</code><code class="descname">parse_into_single_tuple</code><span class="sig-paren">(</span><em>items</em>, <em>retval=None</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.helpers.parse_into_single_tuple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse lists/tuples of lists/tuples into one tuple with all the values.</p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-bootstrap_wrapper.navigation">
+<span id="bootstrap-wrapper-navigation-module"></span><h2>bootstrap_wrapper.navigation module<a class="headerlink" href="#module-bootstrap_wrapper.navigation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="v2-navigation">
+<h3>v2.navigation<a class="headerlink" href="#v2-navigation" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Holds elements for our navigation classes. (Tabbar and Navbar)</div></blockquote>
+<dl class="class">
+<dt id="bootstrap_wrapper.navigation.Navbar">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.navigation.</code><code class="descname">Navbar</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>brand=None</em>, <em>inverse=False</em>, <em>right_only=False</em>, <em>top=False</em>, <em>right_items=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.navigation.Navbar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>Our top level navbar tag.</p>
+<dl class="method">
+<dt id="bootstrap_wrapper.navigation.Navbar.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.navigation.Navbar.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds items to the navbar, unless right_only True, then it will send the items,
+to add_right.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bootstrap_wrapper.navigation.Navbar.add_right">
+<code class="descname">add_right</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.navigation.Navbar.add_right" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds item to the right justified navbar list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bootstrap_wrapper.navigation.Navbar.tagname">
+<code class="descname">tagname</code><em class="property"> = 'nav'</em><a class="headerlink" href="#bootstrap_wrapper.navigation.Navbar.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.navigation.NavbarBrand">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.navigation.</code><code class="descname">NavbarBrand</code><span class="sig-paren">(</span><em>text=''</em>, <em>href=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.navigation.NavbarBrand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Div" title="bootstrap_wrapper.elements.Div"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Div</span></code></a></p>
+<p>A navbar brand element.  Rendered to the far left before any navbar items.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.navigation.NavbarDropdown">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.navigation.</code><code class="descname">NavbarDropdown</code><span class="sig-paren">(</span><em>*items</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.navigation.NavbarDropdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Dropdown" title="bootstrap_wrapper.elements.Dropdown"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Dropdown</span></code></a></p>
+<p>A dropdown menu for a navbar.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.navigation.NavbarItems">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.navigation.</code><code class="descname">NavbarItems</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>right=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.navigation.NavbarItems" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Ul" title="bootstrap_wrapper.elements.Ul"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Ul</span></code></a></p>
+<p>A &lt;ul&gt; tag to hold all the elements of the navbar, optionally right-justified.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.navigation.Tab">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.navigation.</code><code class="descname">Tab</code><span class="sig-paren">(</span><em>text</em>, <em>content=None</em>, <em>content_kwargs={}</em>, <em>href=None</em>, <em>pills=False</em>, <em>active=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.navigation.Tab" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A convenience object to instantiate a tab with it&#8217;s content together.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.navigation.TabContent">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.navigation.</code><code class="descname">TabContent</code><span class="sig-paren">(</span><em>*items</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.navigation.TabContent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Div" title="bootstrap_wrapper.elements.Div"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Div</span></code></a></p>
+<p>Container that holds all the content for all the tabs of the tabbar. Each tab
+should have a TabPane that gets added to the class, where the TabPane is the actual
+content for a particular tab.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.navigation.TabPane">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.navigation.</code><code class="descname">TabPane</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>id=''</em>, <em>active=False</em>, <em>fade=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.navigation.TabPane" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Div" title="bootstrap_wrapper.elements.Div"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Div</span></code></a></p>
+<p>The actual content for a particular tab.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.navigation.Tabbar">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.navigation.</code><code class="descname">Tabbar</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>pills=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.navigation.Tabbar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<dl class="method">
+<dt id="bootstrap_wrapper.navigation.Tabbar.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.navigation.Tabbar.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bootstrap_wrapper.navigation.Tabbar.tagname">
+<code class="descname">tagname</code><em class="property"> = 'div'</em><a class="headerlink" href="#bootstrap_wrapper.navigation.Tabbar.tagname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Our top level tabbar element.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.navigation.TabbarTab">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.navigation.</code><code class="descname">TabbarTab</code><span class="sig-paren">(</span><em>text</em>, <em>href</em>, <em>pills=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.navigation.TabbarTab" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Button" title="bootstrap_wrapper.elements.Button"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Button</span></code></a></p>
+<p>The tabs/pills of a tabbar.
+This item will probably not be used directly too often, you should use one of 
+the convenience method to create a tab with it&#8217;s content.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.navigation.TabbarUl">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.navigation.</code><code class="descname">TabbarUl</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>pills=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.navigation.TabbarUl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Ul" title="bootstrap_wrapper.elements.Ul"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Ul</span></code></a></p>
+<p>A &lt;ul&gt; element that holds the tabs for our tabbar.
+This element will not be used directly too often, you should
+use one of the convience methods to add items to the tabbar.</p>
+<dl class="method">
+<dt id="bootstrap_wrapper.navigation.TabbarUl.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>active=False</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.navigation.TabbarUl.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-bootstrap_wrapper">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-bootstrap_wrapper" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bootstrap_wrapper.Document">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">Document</code><span class="sig-paren">(</span><em>title='Dominate'</em>, <em>doctype='&lt;!DOCTYPE html&gt;'</em>, <em>request=None</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.Document" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">dominate.document.document</span></code></p>
+<p>Just passes render through Markup.</p>
+<dl class="method">
+<dt id="bootstrap_wrapper.Document.render">
+<code class="descname">render</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.Document.render" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.BootstrapDocument">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">BootstrapDocument</code><span class="sig-paren">(</span><em>*args</em>, <em>*</em>, <em>bootstrap_url='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6'</em>, <em>jquery_url='https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js'</em>, <em>static_folder=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.BootstrapDocument" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.document.Document" title="bootstrap_wrapper.document.Document"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.document.Document</span></code></a></p>
+<p>BootstrapDocument.</p>
+<p>Adds bootstrap and jquery to a document, with the option to specify a local
+file system path to load it from or a cdn path.</p>
+<p>The following tags are available to add items to.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Head:</th><td class="field-body"><p class="first">The head tag of the document.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Meta:</th><td class="field-body"><p class="first">Stores meta tags inside of the head tag.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Content:</th><td class="field-body"><p class="first">A &lt;div class=&#8217;container&#8217; id=&#8217;content&#8217;&gt; tag.
+Calling the add method of a document adds items inside
+of this tag.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Body:</th><td class="field-body"><p class="first">The body of the document.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Scripts:</th><td class="field-body"><p class="first">A &lt;div&gt; below the content, to add &lt;script&gt; tags to.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>bootstrap_url</strong> &#8211; A cdn url or path to a static folder.</li>
+<li><strong>jquery_url</strong> &#8211; A cdn url or path to a static folder.</li>
+<li><strong>static_folder</strong> &#8211; A path in the file system to load from.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="bootstrap_wrapper.BootstrapDocument.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.BootstrapDocument.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds items to the content div by default.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.ElementMeta">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">ElementMeta</code><a class="headerlink" href="#bootstrap_wrapper.ElementMeta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">type</span></code></p>
+<p>Adds tagname override to our elements.</p>
+<dl class="attribute">
+<dt id="bootstrap_wrapper.ElementMeta.tagname">
+<code class="descname">tagname</code><em class="property"> = None</em><a class="headerlink" href="#bootstrap_wrapper.ElementMeta.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.Element">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">Element</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.Element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">dominate.tags.html_tag</span></code></p>
+<p>Our base class for all of our tags.</p>
+<dl class="method">
+<dt id="bootstrap_wrapper.Element.render">
+<code class="descname">render</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.Element.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>runs render through markupsafes Markup.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.Tag">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">Tag</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.Tag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Element" title="bootstrap_wrapper.elements.Element"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Element</span></code></a></p>
+<dl class="method">
+<dt id="bootstrap_wrapper.Tag.update_kwargs">
+<code class="descname">update_kwargs</code><span class="sig-paren">(</span><em>kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.Tag.update_kwargs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.Div">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">Div</code><span class="sig-paren">(</span><em>*args</em>, <em>*</em>, <em>fluid=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.Div" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>A &lt;div&gt; tag.  Default class is <cite>container</cite>.</p>
+<dl class="attribute">
+<dt id="bootstrap_wrapper.Div.tagname">
+<code class="descname">tagname</code><em class="property"> = 'div'</em><a class="headerlink" href="#bootstrap_wrapper.Div.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.Ul">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">Ul</code><span class="sig-paren">(</span><em>*items</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.Ul" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>A &lt;ul&gt; tag.  Makes sure all elements added are wrapped in &lt;li&gt; tag.</p>
+<dl class="method">
+<dt id="bootstrap_wrapper.Ul.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>active=False</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.Ul.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bootstrap_wrapper.Ul.tagname">
+<code class="descname">tagname</code><em class="property"> = 'ul'</em><a class="headerlink" href="#bootstrap_wrapper.Ul.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.Glyphicon">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">Glyphicon</code><span class="sig-paren">(</span><em>*args</em>, <em>*</em>, <em>icon_name='home'</em>, <em>href=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.Glyphicon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>A glyphicon element.</p>
+<p>If this element is called with an href then it returns and &lt;a&gt; tag with
+the appropriate class&#8217;s, else it defaults to a &lt;span&gt; tag.</p>
+<dl class="attribute">
+<dt id="bootstrap_wrapper.Glyphicon.tagname">
+<code class="descname">tagname</code><em class="property"> = 'span'</em><a class="headerlink" href="#bootstrap_wrapper.Glyphicon.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.DropdownButton">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">DropdownButton</code><span class="sig-paren">(</span><em>text=None</em>, <em>glyph=None</em>, <em>caret=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.DropdownButton" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<dl class="attribute">
+<dt id="bootstrap_wrapper.DropdownButton.tagname">
+<code class="descname">tagname</code><em class="property"> = 'a'</em><a class="headerlink" href="#bootstrap_wrapper.DropdownButton.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.Dropdown">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">Dropdown</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>li=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.Dropdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>A dropdown element.</p>
+<dl class="method">
+<dt id="bootstrap_wrapper.Dropdown.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.Dropdown.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds items to the menu.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bootstrap_wrapper.Dropdown.tagname">
+<code class="descname">tagname</code><em class="property"> = 'div'</em><a class="headerlink" href="#bootstrap_wrapper.Dropdown.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.TableHeader">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">TableHeader</code><span class="sig-paren">(</span><em>*items</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.TableHeader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>A table header element.</p>
+<dl class="method">
+<dt id="bootstrap_wrapper.TableHeader.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.TableHeader.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds items to the row.  
+Makes sure items are wrapped in &lt;th&gt; tag.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bootstrap_wrapper.TableHeader.tagname">
+<code class="descname">tagname</code><em class="property"> = 'thead'</em><a class="headerlink" href="#bootstrap_wrapper.TableHeader.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.TableRow">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">TableRow</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>header=False</em>, <em>info=False</em>, <em>success=False</em>, <em>warning=False</em>, <em>danger=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.TableRow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>A row in a TableHeader or TableBody element.</p>
+<dl class="method">
+<dt id="bootstrap_wrapper.TableRow.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.TableRow.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds items to the table row, items are wrapped in a &lt;td&gt; tag if self.header is
+False, else they are wrapped in a &lt;th&gt; tag.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bootstrap_wrapper.TableRow.tagname">
+<code class="descname">tagname</code><em class="property"> = 'tr'</em><a class="headerlink" href="#bootstrap_wrapper.TableRow.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.TableBody">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">TableBody</code><span class="sig-paren">(</span><em>*items</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.TableBody" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>The body of a table element.</p>
+<dl class="method">
+<dt id="bootstrap_wrapper.TableBody.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.TableBody.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make&#8217;s sure all items are a TableRow or tr tag.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bootstrap_wrapper.TableBody.tagname">
+<code class="descname">tagname</code><em class="property"> = 'tbody'</em><a class="headerlink" href="#bootstrap_wrapper.TableBody.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.Table">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">Table</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>bordered=False</em>, <em>striped=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.Table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>The top level table element.</p>
+<dl class="method">
+<dt id="bootstrap_wrapper.Table.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.Table.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds items to the table body.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bootstrap_wrapper.Table.tagname">
+<code class="descname">tagname</code><em class="property"> = 'table'</em><a class="headerlink" href="#bootstrap_wrapper.Table.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.ResponsiveTable">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">ResponsiveTable</code><span class="sig-paren">(</span><em>*items</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.ResponsiveTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Div" title="bootstrap_wrapper.elements.Div"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Div</span></code></a></p>
+<p>A wrapper to make a table responsive.</p>
+<dl class="attribute">
+<dt id="bootstrap_wrapper.ResponsiveTable.tagname">
+<code class="descname">tagname</code><em class="property"> = 'div'</em><a class="headerlink" href="#bootstrap_wrapper.ResponsiveTable.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.Button">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">Button</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>anchor=False</em>, <em>primary=False</em>, <em>success=False</em>, <em>info=False</em>, <em>danger=False</em>, <em>link=False</em>, <em>pull_right=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.Button" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>A button element.</p>
+<dl class="attribute">
+<dt id="bootstrap_wrapper.Button.tagname">
+<code class="descname">tagname</code><em class="property"> = 'button'</em><a class="headerlink" href="#bootstrap_wrapper.Button.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.Small">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">Small</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.Small" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<dl class="attribute">
+<dt id="bootstrap_wrapper.Small.tagname">
+<code class="descname">tagname</code><em class="property"> = 'small'</em><a class="headerlink" href="#bootstrap_wrapper.Small.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.Tabbar">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">Tabbar</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>pills=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.Tabbar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<dl class="method">
+<dt id="bootstrap_wrapper.Tabbar.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.Tabbar.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bootstrap_wrapper.Tabbar.tagname">
+<code class="descname">tagname</code><em class="property"> = 'div'</em><a class="headerlink" href="#bootstrap_wrapper.Tabbar.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.Tab">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">Tab</code><span class="sig-paren">(</span><em>text</em>, <em>content=None</em>, <em>content_kwargs={}</em>, <em>href=None</em>, <em>pills=False</em>, <em>active=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.Tab" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A convenience object to instantiate a tab with it&#8217;s content together.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.TabbarTab">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">TabbarTab</code><span class="sig-paren">(</span><em>text</em>, <em>href</em>, <em>pills=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.TabbarTab" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Button" title="bootstrap_wrapper.elements.Button"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Button</span></code></a></p>
+<p>The tabs/pills of a tabbar.
+This item will probably not be used directly too often, you should use one of 
+the convenience method to create a tab with it&#8217;s content.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.TabContent">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">TabContent</code><span class="sig-paren">(</span><em>*items</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.TabContent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Div" title="bootstrap_wrapper.elements.Div"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Div</span></code></a></p>
+<p>Container that holds all the content for all the tabs of the tabbar. Each tab
+should have a TabPane that gets added to the class, where the TabPane is the actual
+content for a particular tab.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.TabPane">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">TabPane</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>id=''</em>, <em>active=False</em>, <em>fade=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.TabPane" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Div" title="bootstrap_wrapper.elements.Div"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Div</span></code></a></p>
+<p>The actual content for a particular tab.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.TabbarUl">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">TabbarUl</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>pills=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.TabbarUl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Ul" title="bootstrap_wrapper.elements.Ul"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Ul</span></code></a></p>
+<p>A &lt;ul&gt; element that holds the tabs for our tabbar.
+This element will not be used directly too often, you should
+use one of the convience methods to add items to the tabbar.</p>
+<dl class="method">
+<dt id="bootstrap_wrapper.TabbarUl.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>active=False</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.TabbarUl.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.NavbarBrand">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">NavbarBrand</code><span class="sig-paren">(</span><em>text=''</em>, <em>href=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.NavbarBrand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Div" title="bootstrap_wrapper.elements.Div"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Div</span></code></a></p>
+<p>A navbar brand element.  Rendered to the far left before any navbar items.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.NavbarItems">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">NavbarItems</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>right=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.NavbarItems" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Ul" title="bootstrap_wrapper.elements.Ul"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Ul</span></code></a></p>
+<p>A &lt;ul&gt; tag to hold all the elements of the navbar, optionally right-justified.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.NavbarDropdown">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">NavbarDropdown</code><span class="sig-paren">(</span><em>*items</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.NavbarDropdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Dropdown" title="bootstrap_wrapper.elements.Dropdown"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Dropdown</span></code></a></p>
+<p>A dropdown menu for a navbar.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.Navbar">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">Navbar</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>brand=None</em>, <em>inverse=False</em>, <em>right_only=False</em>, <em>top=False</em>, <em>right_items=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.Navbar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>Our top level navbar tag.</p>
+<dl class="method">
+<dt id="bootstrap_wrapper.Navbar.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.Navbar.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds items to the navbar, unless right_only True, then it will send the items,
+to add_right.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bootstrap_wrapper.Navbar.add_right">
+<code class="descname">add_right</code><span class="sig-paren">(</span><em>*items</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.Navbar.add_right" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds item to the right justified navbar list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bootstrap_wrapper.Navbar.tagname">
+<code class="descname">tagname</code><em class="property"> = 'nav'</em><a class="headerlink" href="#bootstrap_wrapper.Navbar.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.BootstrapForm">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">BootstrapForm</code><span class="sig-paren">(</span><em>*items</em>, <em>*</em>, <em>action=None</em>, <em>method='POST'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.BootstrapForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>Top level form element.</p>
+<dl class="attribute">
+<dt id="bootstrap_wrapper.BootstrapForm.tagname">
+<code class="descname">tagname</code><em class="property"> = 'form'</em><a class="headerlink" href="#bootstrap_wrapper.BootstrapForm.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.QuickForm">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">QuickForm</code><span class="sig-paren">(</span><em>form=None</em>, <em>pull_right=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.QuickForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.forms.BootstrapForm" title="bootstrap_wrapper.forms.BootstrapForm"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.forms.BootstrapForm</span></code></a></p>
+<p>A helper to render a WTForms Form.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.FormRow">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">FormRow</code><span class="sig-paren">(</span><em>*fields</em>, <em>*</em>, <em>col_args=None</em>, <em>offset=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.FormRow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Div" title="bootstrap_wrapper.elements.Div"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Div</span></code></a></p>
+<p>Allows the creation of row with form fields inline with labels above them.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.FormGroup">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">FormGroup</code><span class="sig-paren">(</span><em>*args</em>, <em>*</em>, <em>field=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.FormGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Div" title="bootstrap_wrapper.elements.Div"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Div</span></code></a></p>
+<p>A Form Group holds a label, field, and any errors associated with a field.
+This is primarily used with a WTForm field.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.FormField">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">FormField</code><span class="sig-paren">(</span><em>type</em>, <em>id</em>, <em>place_holder=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.FormField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<p>A basic form field.</p>
+<dl class="attribute">
+<dt id="bootstrap_wrapper.FormField.is_single">
+<code class="descname">is_single</code><em class="property"> = True</em><a class="headerlink" href="#bootstrap_wrapper.FormField.is_single" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bootstrap_wrapper.FormField.tagname">
+<code class="descname">tagname</code><em class="property"> = 'input'</em><a class="headerlink" href="#bootstrap_wrapper.FormField.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bootstrap_wrapper.A">
+<em class="property">class </em><code class="descclassname">bootstrap_wrapper.</code><code class="descname">A</code><span class="sig-paren">(</span><em>*args</em>, <em>*</em>, <em>href=None</em>, <em>button_type='link'</em>, <em>pull_right=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap_wrapper.A" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bootstrap_wrapper.elements.Tag" title="bootstrap_wrapper.elements.Tag"><code class="xref py py-class docutils literal"><span class="pre">bootstrap_wrapper.elements.Tag</span></code></a></p>
+<dl class="attribute">
+<dt id="bootstrap_wrapper.A.tagname">
+<code class="descname">tagname</code><em class="property"> = 'a'</em><a class="headerlink" href="#bootstrap_wrapper.A.tagname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">bootstrap_wrapper package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-bootstrap_wrapper.document">bootstrap_wrapper.document module</a><ul>
+<li><a class="reference internal" href="#v2-document">v2.document</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-bootstrap_wrapper.elements">bootstrap_wrapper.elements module</a><ul>
+<li><a class="reference internal" href="#v2-elements">v2.elements</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-bootstrap_wrapper.forms">bootstrap_wrapper.forms module</a><ul>
+<li><a class="reference internal" href="#v2-forms">v2.forms</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-bootstrap_wrapper.helpers">bootstrap_wrapper.helpers module</a><ul>
+<li><a class="reference internal" href="#v2-helpers">v2.helpers</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-bootstrap_wrapper.navigation">bootstrap_wrapper.navigation module</a><ul>
+<li><a class="reference internal" href="#v2-navigation">v2.navigation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-bootstrap_wrapper">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/bootstrap_wrapper.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Michael Housh.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/bootstrap_wrapper.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
