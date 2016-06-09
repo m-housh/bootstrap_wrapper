@@ -27,7 +27,7 @@ class ElementsTestCase(TestCase):
 
     def test_ul_element(self):
         u = Ul('a','b','c')
-        tv = ul(li('a'),li('b'),li('c'))
+        tv = ul(li('a', style="float:left;"),li('b', style="float:left;"),li('c', style="float:left;"))
         self.assertEqual(u.render(), tv.render())
 
         u.add(li('d'))
@@ -99,12 +99,15 @@ class ElementsTestCase(TestCase):
                 href='#'
             ),
             ul(
-                li(a('Menu1', href='#')),
-                li(a('Menu2', href='#')),
+                li(a('Menu1', href='#'), style="float:left;"),
+                li(a('Menu2', href='#'), style="float:left;"),
                 _class='dropdown-menu',
             ),
             _class='dropdown'
         )
+
+        print(d)
+        print(tv)
 
         self.assertEqual(d.render(), tv.render())
 

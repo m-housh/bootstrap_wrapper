@@ -9,13 +9,13 @@ def bootstrapDoc(): #{{{
     doc = document(title='My Title')
     doc.head.add(meta(name="viewport", content="width=device-width, initial-scale=1.0"))
     doc.head.add(comment('Latest compiled and minified CSS'))
-    doc.head.add(link(rel="stylesheet", href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"))
+    doc.head.add(link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"))
     content = doc.body.add(div(_class="container", id="content"))
     scripts = doc.body.add(div(_class='container', id="scripts"))
     scripts.add(comment('jQuery library'))
     scripts.add(script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js'))
     scripts.add(comment('Latest compiled JavaScript'))
-    scripts.add(script(src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'))
+    scripts.add(script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'))
 
 
     return doc
@@ -26,7 +26,7 @@ class BootstrapDocumentTestCase(TestCase):
     def test_bootstrap_document_should_have_correct_elements(self):
         b = BootstrapDocument(title='My Title')
         tv = bootstrapDoc()
-        self.assertEqual(b.render(inline=True), tv.render(inline=True))
+        self.assertEqual(b.render(), tv.render())
 
     def test_items_get_added_to_body_content_container(self):
         b = BootstrapDocument(title='My Title')
